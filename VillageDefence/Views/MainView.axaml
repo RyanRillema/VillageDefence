@@ -1,0 +1,240 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:VillageDefence.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="550"
+             MinWidth="400" MinHeight="550"
+             Width="400" Height="550"
+             x:Class="VillageDefence.Views.MainView"
+             x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+  <UserControl.Styles>
+    <Style Selector="Grid.g1">
+      <Setter Property="ShowGridLines" Value="True"/>
+    </Style>
+    <Style Selector="Button.Main">
+      <Setter Property="Margin" Value="5"/>
+      <Setter Property="HorizontalAlignment" Value="Center"/>
+      <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="Label.stats">
+      <Setter Property="Background" Value="AliceBlue"/>
+    </Style>
+    <Style Selector="Label.temp">
+      <Setter Property="Background" Value="AliceBlue"/>
+      <Setter Property="Height" Value="50"/>
+      <Setter Property="Width" Value="150"/>
+    </Style>
+    <Style Selector="Button.Building">
+      <Setter Property="Background" Value="BurlyWood"/>
+      <Setter Property="Height" Value="90"/>
+      <Setter Property="Width" Value="90"/>
+      <Setter Property="HorizontalAlignment" Value="Center"/>
+      <Setter Property="VerticalAlignment" Value="Center"/>
+      <Setter Property="FontSize" Value="12"/>
+    </Style>
+    <Style Selector="Label.River">
+      <Setter Property="Background" Value="Cyan"/>
+      <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    </Style>
+  </UserControl.Styles>
+
+
+  <StackPanel>
+    <!--2x1 Main grid-->
+    <Grid Classes="g1"
+      ColumnDefinitions="400"
+      RowDefinitions="500,50">
+      <Label Name="MainLabel" Grid.Row="0" Grid.Column="0"
+             IsVisible="False"
+             Height="500"/>
+
+      <Grid Name="MainGrid" Classes="g1"           
+           Grid.Row="0" Grid.Column="0"
+           ColumnDefinitions="400"
+           RowDefinitions="400,100">
+        <!--1x1 grid for top for now-->
+        <Grid Classes="g1"
+              RowDefinitions ="Auto"
+              ColumnDefinitions="Auto"
+              Grid.Row="0" Grid.Column="0">
+
+          <Grid Classes="g1"
+              RowDefinitions ="20,Auto,20"
+              ColumnDefinitions="20,Auto,20"
+              Grid.Row="0" Grid.Column="0">
+            <!--Inner building layout grid-->
+            <Grid Classes="g1"
+              RowDefinitions ="90,90,90,90"
+              ColumnDefinitions="90,90,90,90"
+              Grid.Row="1" Grid.Column="1">
+              <Button Name="BuildA1" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="0" Grid.Column="0">
+                A1
+              </Button>
+              <Button Name="BuildA2" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="0" Grid.Column="1">
+                A2
+              </Button>
+              <Button Name="BuildA3" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="0" Grid.Column="2">
+                A3
+              </Button>
+              <Button Name="BuildA4" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="0" Grid.Column="3">
+                A4
+              </Button>
+              <Button Name="BuildB1" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="1" Grid.Column="0">
+                B1
+              </Button>
+              <Button Name="BuildB2" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="1" Grid.Column="1">
+                B2
+              </Button>
+              <Button Name="BuildB3" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="1" Grid.Column="2">
+                B3
+              </Button>
+              <Button Name="BuildB4" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="1" Grid.Column="3">
+                B4
+              </Button>
+              <Button Name="BuildC1" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="2" Grid.Column="0">
+                C1
+              </Button>
+              <Button Name="BuildC2" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="2" Grid.Column="1">
+                C2
+              </Button>
+              <Button Name="BuildC3" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="2" Grid.Column="2">
+                C3
+              </Button>
+              <Button Name="BuildC4" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="2" Grid.Column="3">
+                C4
+              </Button>
+              <Button Name="BuildD1" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="3" Grid.Column="0">
+                D1
+              </Button>
+              <Button Name="BuildD2" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="3" Grid.Column="1">
+                D2
+              </Button>
+              <Button Name="BuildD3" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="3" Grid.Column="2">
+                D3
+              </Button>
+              <Button Name="BuildD4" Classes="Building"
+               Click="BuildButtonClicked"
+               Grid.Row="3" Grid.Column="3">
+                D4
+              </Button>
+            </Grid>
+            <!--Water Cells-->
+            <Label Classes="River" Grid.Row="0" Grid.Column="0"></Label>
+            <Label Classes="River" Grid.Row="0" Grid.Column="1"></Label>
+            <Label Classes="River" Grid.Row="0" Grid.Column="2"></Label>
+            <Label Classes="River" Grid.Row="1" Grid.Column="0"></Label>
+            <Label Classes="River" Grid.Row="1" Grid.Column="2"></Label>
+            <Label Classes="River" Grid.Row="2" Grid.Column="0"></Label>
+            <Label Classes="River" Grid.Row="2" Grid.Column="1"></Label>
+            <Label Classes="River" Grid.Row="2" Grid.Column="2"></Label>
+          </Grid>
+        </Grid>
+        <!--Middle panel-->
+        <Grid Classes="g1"
+            ColumnDefinitions="Auto"
+            RowDefinitions="Auto"
+            Grid.Row="1" Grid.Column="0">
+        </Grid>
+        <!--Split bottom panel into 3 sections-->
+        <Grid Classes="g1"
+            ColumnDefinitions ="150,100,150"
+            RowDefinitions="100"
+            Grid.Row="2" Grid.Column="0">
+          <!--1x1 Left bottom control panel-->
+          <Grid Classes="g1"
+            ColumnDefinitions="150"
+            Grid.Row="0" Grid.Column="0">
+            <!--Outer left labels-->
+            <Grid Classes="g1"
+            ColumnDefinitions="75,75"
+            RowDefinitions ="25,25,25,25"
+            Grid.Row="0" Grid.Column="0">
+              <Label Name="TurnLabel" Classes="stats"
+                Grid.Row="0" Grid.Column="0">
+                Turn: 0
+              </Label>
+              <Label Name="CoinsLabel" Classes="stats"
+                Grid.Row="1" Grid.Column="0">
+                Coins: 0
+              </Label>
+              <Label Name="CoinsPerTurnLabel" Classes="stats"
+                Grid.Row="1" Grid.Column="1">
+                (+0)
+              </Label>
+              <Label Name="FoodLabel" Classes="stats"
+               Grid.Row="2" Grid.Column="0">
+                Food: 0
+              </Label>
+              <Label Name="FoodPerTurnLabel" Classes="stats"
+                Grid.Row="2" Grid.Column="1">
+                (+0)
+              </Label>
+              <Label Name="LabelB" Classes="stats"
+                Grid.Row="3" Grid.Column="0">
+                Label: B
+              </Label>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      <Grid 
+         ColumnDefinitions="75,75,75,75,75"
+         RowDefinitions ="50"
+         Grid.Row="1" Grid.Column="0">
+        <Button Name="NextTurnButton" Classes="Main"
+            Click="NextTurnButtonClicked" CornerRadius="8"
+            Grid.Row="0" Grid.Column="0">Next</Button>
+        <Button Name="HomeButton" Classes="Main"
+            Click="HomeButtonClicked" CornerRadius="8"
+            Grid.Row="0" Grid.Column="2">Home</Button>
+        <Button Name="NewGameButton" Classes="Main"
+          Click="NewGameButtonClicked" CornerRadius="8"
+          Grid.Row="0" Grid.Column="3">New</Button>
+        <Button Name="ExitButton" Classes="Main"
+          Loaded="FormLoad"
+          Click="ExitButtonClicked" CornerRadius="8"
+          Grid.Row="0" Grid.Column="4">Exit</Button>
+      </Grid>
+    </Grid>
+    
+  </StackPanel>
+    
+</UserControl>
