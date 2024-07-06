@@ -3,49 +3,82 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VillageDefence.Models.BaseModels;
+using VillageDefence.Models.Units;
 
 namespace VillageDefence.Models.Structures
 {
-    public class ConstructionStructure : Structure
+    public class ConstructionStructure(int NewType) : BaseStructure
     {
+        // private Unit myUnit= new Unit();
         // Type: 1-Barracks
-        public int Type = 0;
+        public int Type = NewType;
 
         public override bool Upgrade()
         {
-            return true;    
-        }
+            return SetRawData(Type, Level + 1);
+        }        
         public override String CreateLabelA()
         {
-            return "";
+            switch (Type)
+            {
+                case 1:
+                    return "0";
+                default:
+                    return " ";
+            }
         }
         public override String CreateLabelAValue()
         {
-            return "";
+            switch (Type)
+            {
+                case 1:
+                    return " ";
+                default:
+                    return " ";
+            }
         }
-        public override String CreateLabelB()
+        public override String CreateTextFuncA()
         {
-            return "";
+            switch (Type)
+            {
+                case 1:
+                    return "Train Melee";
+                default:
+                    return " ";
+            }
         }
-        public override String CreateLabelBValue()
+        private bool SetRawData(int RawType, int RawLevel)
         {
-            return "";
+            Type = RawType;
+            Level = RawLevel;
+
+            switch (RawType)
+            {
+                case 1:
+                    // Tower
+                    return SetRawBarracks(RawLevel);                
+                default:
+                    Name = "None";
+                    return false;
+            }
         }
-        public override String CreateLabelC()
+        private bool SetRawBarracks(int RawLevel)
         {
-            return "";
+            switch (RawLevel)
+            {
+                case 0:
+                    Name = "Dirt";
+                    UpgradeCost = 20;
+                    return true;
+                case 1:
+                    Name = "Barracks";
+                    UpgradeCost = 999;
+                    return true;
+                default:
+                    return false;
+            }
         }
-        public override String CreateLabelCValue()
-        {
-            return "";
-        }
-        public override String CreateLabelD()
-        {
-            return "";
-        }
-        public override String CreateLabelDValue()
-        {
-            return "";
-        }
+
     }
 }

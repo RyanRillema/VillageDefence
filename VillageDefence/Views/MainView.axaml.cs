@@ -42,7 +42,7 @@ public partial class MainView : UserControl
         }
         if (source.Equals(BuildB2))
         {
-
+            myBuildingView = new BuildingView(myGame, myGame.myVillage.Barracks);
         }
         if (source.Equals(BuildB3))
         {
@@ -104,6 +104,8 @@ public partial class MainView : UserControl
         CoinsPerTurnLabel.Content = "(+" + myGame.myVillage.CoinsPerTurn() + ")";
         FoodLabel.Content = "Food: " + myGame.myVillage.Food;
         FoodPerTurnLabel.Content = "(" + myGame.myVillage.FoodPerTurn() + ")";
+        MeleeLabel.Content = "Army: " + myGame.myVillage.MeleeUnits.Count;
+        RangeLabel.Content = "Range: " + myGame.myVillage.RangeUnits.Count;
     }
     private void RefreshBuildings()
     {
@@ -131,6 +133,10 @@ public partial class MainView : UserControl
         BuildA4.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level
             + "\nDamage: " + myGame.myVillage.TowerB.Combat.DamageValue
             + "\nArmour: " + myGame.myVillage.TowerB.Combat.ArmourValue
+            + "\n(" + RefreshBase.UpgradeCost + ")";
+
+        RefreshBase = myGame.myVillage.Barracks;
+        BuildB2.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level
             + "\n(" + RefreshBase.UpgradeCost + ")";
 
         RefreshBase = myGame.myVillage.CoinsA;

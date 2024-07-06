@@ -7,7 +7,7 @@ using VillageDefence.Models.BaseModels;
 
 namespace VillageDefence.Models.Structures
 {
-    public class DefenseStructure(int NewType) : Structure
+    public class DefenseStructure(int NewType) : BaseStructure
     {
         // Type: 1-Tower, 2-Gate
         public int Type = NewType;
@@ -16,7 +16,7 @@ namespace VillageDefence.Models.Structures
         public override bool Upgrade()
         {
             return SetRawData(Type, Level + 1); 
-        }
+        }        
         public override String CreateLabelA()
         {
             return "Damage:";
@@ -75,11 +75,11 @@ namespace VillageDefence.Models.Structures
         {
             switch (RawLevel)
             {
-                case 1:
+                case 0:
                     Name = "Dirt";
                     UpgradeCost = 20;
                     return true;
-                case 2:
+                case 1:
                     Name = "Rock pile";
                     UpgradeCost = 50;
                     Combat.ArmourType = 1;
@@ -87,21 +87,21 @@ namespace VillageDefence.Models.Structures
                     Combat.DamageType = 2;
                     Combat.DamageValue = 4;
                     return true;
-                case 3:
+                case 2:
                     Name = "Spear pile";
                     UpgradeCost = 100;
                     Combat.ArmourValue = 3;
                     Combat.DamageValue = 8;
                     return true;
-                case 4:
+                case 3:
                     Name = "Arrows";
                     UpgradeCost = 150;
-                    Combat.ArmourValue = 8;
+                    Combat.ArmourValue = 8; 
                     Combat.DamageValue = 15;
                     return true;
-                case 5:
+                case 4:
                     Name = "Flaming arrows";
-                    UpgradeCost = 250;
+                    UpgradeCost = 999;
                     Combat.ArmourValue = 8;
                     Combat.DamageValue = 22;
                     return true;
@@ -114,27 +114,27 @@ namespace VillageDefence.Models.Structures
         {
             switch (RawLevel)
             {
-                case 1:
+                case 0:
                     Name = "Dirt";
                     UpgradeCost = 10;
                     return true;
-                case 2:
+                case 1:
                     Name = "Simple stick gate";
                     UpgradeCost = 25;
                     Combat.ArmourType = 1;
                     Combat.ArmourValue = 3;
                     return true;
-                case 3:
+                case 2:
                     Name = "Medium stick gate";
                     UpgradeCost= 70;
                     Combat.ArmourValue = 8;
                     return true;
-                case 4:
+                case 3:
                     Name = "Thick stick gate";
                     UpgradeCost = 100;
                     Combat.ArmourValue = 20;
                     return true;
-                case 5:
+                case 4:
                     Name = "Woven stick gate";
                     UpgradeCost = 150;
                     Combat.ArmourValue = 25;

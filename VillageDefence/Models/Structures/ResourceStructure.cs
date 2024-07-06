@@ -8,7 +8,7 @@ using VillageDefence.Models.BaseModels;
 
 namespace VillageDefence.Models.Structures
 {
-    public class ResourceStructure(int NewType) : Structure
+    public class ResourceStructure(int NewType) : BaseStructure
     {
         // Type: 1-Coins, 2-Food
         public int Type = NewType;
@@ -34,31 +34,7 @@ namespace VillageDefence.Models.Structures
         public override String CreateLabelAValue()
         {
             return ResourceInc.ToString();
-        }
-        public override String CreateLabelB()
-        {
-            return " ";
-        }
-        public override String CreateLabelBValue()
-        {
-            return " ";
-        }
-        public override String CreateLabelC()
-        {
-            return " ";
-        }
-        public override String CreateLabelCValue()
-        {
-            return " ";
-        }
-        public override String CreateLabelD()
-        {
-            return " ";
-        }
-        public override String CreateLabelDValue()
-        {
-            return " ";
-        }
+        }        
         private bool SetRawData(int RawType, int RawLevel)
         {
             Type = RawType;
@@ -94,22 +70,22 @@ namespace VillageDefence.Models.Structures
                 case 2:
                     Name = "Bronze scratch";
                     UpgradeCost = 70;
-                    ResourceInc = 2;
+                    ResourceInc = 3;
                     return true;
                 case 3:
                     Name = "Bronze rock";
                     UpgradeCost = 100;
-                    ResourceInc = 4;
+                    ResourceInc = 6;
                     return true;
                 case 4:
                     Name = "Bronze mine";
                     UpgradeCost = 150;
-                    ResourceInc = 7;
+                    ResourceInc = 10;
                     return true;
                 case 5:
                     Name = "Silver scratch";
-                    UpgradeCost = 250;
-                    ResourceInc = 10;
+                    UpgradeCost = 999;
+                    ResourceInc = 15;
                     return true;
                 default:
                     return false;
@@ -146,7 +122,7 @@ namespace VillageDefence.Models.Structures
                     return true;
                 case 5:
                     Name = "Large crops";
-                    UpgradeCost = 200;
+                    UpgradeCost = 999;
                     ResourceInc = 7;
                     return true;
                 default:

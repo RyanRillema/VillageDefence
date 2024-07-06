@@ -15,36 +15,8 @@
   </Design.DataContext>
 
   <UserControl.Styles>
-    <Style Selector="Grid.g1">
-      <Setter Property="ShowGridLines" Value="True"/>
-    </Style>
-    <Style Selector="Button.Main">
-      <Setter Property="Margin" Value="5"/>
-      <Setter Property="HorizontalAlignment" Value="Center"/>
-      <Setter Property="VerticalAlignment" Value="Center"/>
-    </Style>
-    <Style Selector="Label.stats">
-      <Setter Property="Background" Value="AliceBlue"/>
-    </Style>
-    <Style Selector="Label.temp">
-      <Setter Property="Background" Value="AliceBlue"/>
-      <Setter Property="Height" Value="50"/>
-      <Setter Property="Width" Value="150"/>
-    </Style>
-    <Style Selector="Button.Building">
-      <Setter Property="Background" Value="BurlyWood"/>
-      <Setter Property="Height" Value="90"/>
-      <Setter Property="Width" Value="90"/>
-      <Setter Property="HorizontalAlignment" Value="Center"/>
-      <Setter Property="VerticalAlignment" Value="Center"/>
-      <Setter Property="FontSize" Value="12"/>
-    </Style>
-    <Style Selector="Label.River">
-      <Setter Property="Background" Value="Cyan"/>
-      <Setter Property="HorizontalAlignment" Value="Stretch"/>
-    </Style>
+    <StyleInclude Source="/VillageStyles.axaml" />
   </UserControl.Styles>
-
 
   <StackPanel>
     <!--2x1 Main grid-->
@@ -181,7 +153,7 @@
           <Grid Classes="g1"
             ColumnDefinitions="150"
             Grid.Row="0" Grid.Column="0">
-            <!--Outer left labels-->
+            <!--left bottom labels-->
             <Grid Classes="g1"
             ColumnDefinitions="75,75"
             RowDefinitions ="25,25,25,25"
@@ -209,6 +181,25 @@
               <Label Name="LabelB" Classes="stats"
                 Grid.Row="3" Grid.Column="0">
                 Label: B
+              </Label>
+            </Grid>
+          </Grid>
+          <!--1x1 Middle bottom control panel-->
+          <Grid Classes="g1"
+            ColumnDefinitions="100"
+            Grid.Row="0" Grid.Column="1">
+            <!--Middle bottom labels-->
+            <Grid Classes="g1"
+              ColumnDefinitions="100"
+              RowDefinitions ="25,25,25,25"
+              Grid.Row="0" Grid.Column="0">
+              <Label Name="MeleeLabel" Classes="stats"
+              Grid.Row="0" Grid.Column="0">
+                Melee: 0
+              </Label>
+              <Label Name="RangeLabel" Classes="stats"
+              Grid.Row="1" Grid.Column="0">
+                Range: 0
               </Label>
             </Grid>
           </Grid>

@@ -29,12 +29,31 @@ namespace VillageDefence.Views
             LabelDValue.Content = myBuilding.CreateLabelDValue();
             LabelLevelValue.Content=myBuilding.Level;
             LabelUpgradeValue.Content = myBuilding.UpgradeCost;
+
+            FuncAButton.Content = myBuilding.CreateTextFuncA();
+            FuncAButton.IsVisible = !(FuncAButton.Content.ToString() == " ");
+
+            FuncBButton.Content = myBuilding.CreateTextFuncB();
+            FuncBButton.IsVisible = !(FuncBButton.Content.ToString() == " ");
         }
         public void UpgradeButtonClicked(object source, RoutedEventArgs args)
         {
             myGame.myVillage.UpgradeBuilding(myBuilding);
             Refresh();
         }
-
+        public void FuncAButtonClicked(object source, RoutedEventArgs args)
+        {
+            if (myBuilding.FuncA())
+            {
+                Refresh();
+            }            
+        }
+        public void FuncBButtonClicked(object source, RoutedEventArgs args)
+        {
+            if (myBuilding.FuncB())
+            {
+                Refresh();
+            }
+        }
     }
 }

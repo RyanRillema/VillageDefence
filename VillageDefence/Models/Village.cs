@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VillageDefence.Models.Structures;
+using VillageDefence.Models.Units;
 
 namespace VillageDefence.Models
 {
@@ -19,6 +22,13 @@ namespace VillageDefence.Models
         public ResourceStructure CoinsB = new ResourceStructure(1);
         public ResourceStructure FarmA = new ResourceStructure(2);
         public ResourceStructure FarmB = new ResourceStructure(2);
+        public ConstructionStructure Barracks = new ConstructionStructure(1);
+
+        public MeleeUnit MeleeUnits = new MeleeUnit();
+        public RangeUnit RangeUnits = new RangeUnit();
+
+        private int CoinsInc = 2;
+        private int FoodInc = 1;
 
         public void NextTurn()
         {
@@ -39,11 +49,11 @@ namespace VillageDefence.Models
         }
         public int CoinsPerTurn()
         {
-            return CoinsA.ResourceInc+CoinsB.ResourceInc;
+            return CoinsInc + CoinsA.ResourceInc + CoinsB.ResourceInc;
         }
         public int FoodPerTurn()
         {
-            return FarmA.ResourceInc+FarmB.ResourceInc;
+            return FoodInc + FarmA.ResourceInc + FarmB.ResourceInc;
         }
         public void NewGame()
         {
@@ -52,13 +62,14 @@ namespace VillageDefence.Models
             TowerB.Upgrade();
             GateA.Upgrade();
             GateB.Upgrade();
+            Barracks.Upgrade();
             CoinsA.Upgrade();
             CoinsB.Upgrade();
             FarmA.Upgrade();
             FarmB.Upgrade();
 
-            //Upgrade coins to get started
-            CoinsA.Upgrade();
+            //Add some units
+            MeleeUnits.Count = 5;
         }
     }
 }

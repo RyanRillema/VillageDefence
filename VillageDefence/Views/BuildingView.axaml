@@ -8,37 +8,8 @@
              x:Class="VillageDefence.Views.BuildingView">
 
   <UserControl.Styles>
-    <Style Selector="Grid.g1">
-      <Setter Property="ShowGridLines" Value="True"/>
-    </Style>
-    <Style Selector="Button.Main">
-      <Setter Property="Margin" Value="5"/>
-      <Setter Property="HorizontalAlignment" Value="Center"/>
-      <Setter Property="VerticalAlignment" Value="Center"/>
-    </Style>
-    <Style Selector="Label.stats">
-      <Setter Property="Background" Value="AliceBlue"/>
-    </Style>    
-    <Style Selector="Label.Name">
-      <Setter Property="Background" Value="AliceBlue"/>
-      <Setter Property="FontSize" Value="24"/>
-      <Setter Property="HorizontalAlignment" Value="Center"/>
-      <Setter Property="VerticalAlignment" Value="Center"/>
-    </Style>
-    <Style Selector="Button.Building">
-      <Setter Property="Background" Value="BurlyWood"/>
-      <Setter Property="Height" Value="90"/>
-      <Setter Property="Width" Value="90"/>
-      <Setter Property="HorizontalAlignment" Value="Center"/>
-      <Setter Property="VerticalAlignment" Value="Center"/>
-      <Setter Property="FontSize" Value="12"/>
-    </Style>
-    <Style Selector="Label.River">
-      <Setter Property="Background" Value="Cyan"/>
-      <Setter Property="HorizontalAlignment" Value="Stretch"/>
-    </Style>
+    <StyleInclude Source="/VillageStyles.axaml" />
   </UserControl.Styles>
-
 
   <StackPanel>
     <Grid Classes="g1"
@@ -118,11 +89,21 @@
         ColumnDefinitions="100,100"
         RowDefinitions="50,50,50,50"
         Grid.Row="1" Grid.Column="1">
-          <Button Name="UpgradeButton" Classes="Main"
-               Click="UpgradeButtonClicked"
-               Grid.Row="3" Grid.Column="0">
-            Upgrade
+          <Button Name="FuncAButton" Classes="Main"
+              Click="FuncAButtonClicked"
+              Grid.Row="0" Grid.Column="0">
+            Function A
           </Button>
+          <Button Name="FuncBButton" Classes="Main"
+              Click="FuncBButtonClicked"
+              Grid.Row="1" Grid.Column="0">
+            Function B
+          </Button>
+          <Button Name="UpgradeButton" Classes="Main"
+              Click="UpgradeButtonClicked"
+              Grid.Row="2" Grid.Column="0">
+            Upgrade
+          </Button>          
         </Grid>
       </Grid>
     </Grid>
