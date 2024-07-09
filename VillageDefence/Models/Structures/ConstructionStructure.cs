@@ -13,17 +13,48 @@ namespace VillageDefence.Models.Structures
         // private Unit myUnit= new Unit();
         // Type: 1-Barracks
         public int Type = NewType;
-
         public override bool Upgrade()
         {
             return SetRawData(Type, Level + 1);
-        }        
+        }
+        public override bool FuncA(Village myVillage)
+        {
+            if (myVillage.MeleeUnits.CoinCost <= myVillage.Coins)
+            {
+                myVillage.Coins -= myVillage.MeleeUnits.CoinCost;
+                myVillage.MeleeUnits.Count++;
+                return true;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        public override String CreateTextFuncA(Village myVillage)
+        {
+            switch (Type)
+            {
+                case 1:
+                    if (Level >=1)
+                    {
+                        return "Melee (" + myVillage.MeleeUnits.CoinCost + ")";
+                    }
+                    else
+                    {
+                        return " ";
+                    }
+                default:
+                    return " ";
+            }
+        }
         public override String CreateLabelA()
         {
             switch (Type)
             {
                 case 1:
-                    return "0";
+                    return "Melee";
+                case 2:
+                    return "Range";
                 default:
                     return " ";
             }
@@ -33,21 +64,12 @@ namespace VillageDefence.Models.Structures
             switch (Type)
             {
                 case 1:
-                    return " ";
+                    return "Coins: ";
                 default:
                     return " ";
             }
         }
-        public override String CreateTextFuncA()
-        {
-            switch (Type)
-            {
-                case 1:
-                    return "Train Melee";
-                default:
-                    return " ";
-            }
-        }
+       
         private bool SetRawData(int RawType, int RawLevel)
         {
             Type = RawType;

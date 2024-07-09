@@ -89,17 +89,17 @@
         ColumnDefinitions="100,100"
         RowDefinitions="50,50,50,50"
         Grid.Row="1" Grid.Column="1">
-          <Button Name="FuncAButton" Classes="Main"
+          <Button Name="FuncAButton" Classes="Control"
               Click="FuncAButtonClicked"
               Grid.Row="0" Grid.Column="0">
             Function A
           </Button>
-          <Button Name="FuncBButton" Classes="Main"
+          <Button Name="FuncBButton" Classes="Control"
               Click="FuncBButtonClicked"
               Grid.Row="1" Grid.Column="0">
             Function B
           </Button>
-          <Button Name="UpgradeButton" Classes="Main"
+          <Button Name="UpgradeButton" Classes="Control"
               Click="UpgradeButtonClicked"
               Grid.Row="2" Grid.Column="0">
             Upgrade

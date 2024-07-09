@@ -7,12 +7,12 @@ namespace VillageDefence.Views
 {
     public partial class BuildingView : UserControl
     {
-        public Game myGame;
+        public Village myVillage;
         public Structure myBuilding;
-        public BuildingView(Game SetGame, Structure SetBuilding)
+        public BuildingView(Village SetVillage, Structure SetBuilding)
         {
             InitializeComponent();
-            myGame = SetGame;
+            myVillage = SetVillage;
             myBuilding = SetBuilding;
             Refresh();
         }
@@ -30,27 +30,27 @@ namespace VillageDefence.Views
             LabelLevelValue.Content=myBuilding.Level;
             LabelUpgradeValue.Content = myBuilding.UpgradeCost;
 
-            FuncAButton.Content = myBuilding.CreateTextFuncA();
+            FuncAButton.Content = myBuilding.CreateTextFuncA(myVillage);
             FuncAButton.IsVisible = !(FuncAButton.Content.ToString() == " ");
 
-            FuncBButton.Content = myBuilding.CreateTextFuncB();
+            FuncBButton.Content = myBuilding.CreateTextFuncB(myVillage);
             FuncBButton.IsVisible = !(FuncBButton.Content.ToString() == " ");
         }
         public void UpgradeButtonClicked(object source, RoutedEventArgs args)
         {
-            myGame.myVillage.UpgradeBuilding(myBuilding);
+            myVillage.UpgradeBuilding(myBuilding);
             Refresh();
         }
         public void FuncAButtonClicked(object source, RoutedEventArgs args)
         {
-            if (myBuilding.FuncA())
+            if (myBuilding.FuncA(myVillage))
             {
                 Refresh();
             }            
         }
         public void FuncBButtonClicked(object source, RoutedEventArgs args)
         {
-            if (myBuilding.FuncB())
+            if (myBuilding.FuncB(myVillage))
             {
                 Refresh();
             }

@@ -29,6 +29,7 @@ namespace VillageDefence.Models
 
         private int CoinsInc = 2;
         private int FoodInc = 1;
+               
 
         public void NextTurn()
         {
@@ -57,6 +58,9 @@ namespace VillageDefence.Models
         }
         public void NewGame()
         {
+            MeleeUnits.SetInitDetails();
+            RangeUnits.SetInitDetails();
+
             //Upgrade to set intial values
             TowerA.Upgrade();
             TowerB.Upgrade();

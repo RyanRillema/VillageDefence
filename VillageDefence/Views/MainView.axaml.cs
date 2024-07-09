@@ -12,29 +12,46 @@ public partial class MainView : UserControl
 {
     public Game myGame;
     BuildingView myBuildingView;
+    BattleView myBattleView;
     public MainView()
     {
         myGame = new Game();
+        myGame.NewGame();
         InitializeComponent();
-        myBuildingView = new BuildingView(myGame, myGame.myVillage.TowerA);
+        myBuildingView = new BuildingView(myGame.myVillage, myGame.myVillage.TowerA);
+    }
+    public void LoadMainView()
+    {
+        MainGrid.IsVisible = true;
+        MainLabel.IsVisible = false;
+
+        Refresh();
+    }
+    public void ShowHome(bool Hide)
+    {
+        HomeButton.IsVisible = Hide;
+    }
+    public void ShowNext(bool Hide)
+    {
+        NextTurnButton.IsVisible = Hide;
     }
     public void BuildButtonClicked(object source, RoutedEventArgs args)
     {
         if (source.Equals(BuildA1))
         {
-            myBuildingView = new BuildingView(myGame, myGame.myVillage.TowerA);
+            myBuildingView = new BuildingView(myGame.myVillage, myGame.myVillage.TowerA);
         }
         if (source.Equals(BuildA2))
         {
-            myBuildingView = new BuildingView(myGame, myGame.myVillage.GateA);
+            myBuildingView = new BuildingView(myGame.myVillage, myGame.myVillage.GateA);
         }
         if (source.Equals(BuildA3))
         {
-            myBuildingView = new BuildingView(myGame, myGame.myVillage.GateB);
+            myBuildingView = new BuildingView(myGame.myVillage, myGame.myVillage.GateB);
         }
         if (source.Equals(BuildA4))
         {
-            myBuildingView = new BuildingView(myGame, myGame.myVillage.TowerB);
+            myBuildingView = new BuildingView(myGame.myVillage, myGame.myVillage.TowerB);
         }
         if (source.Equals(BuildB1))
         {
@@ -42,7 +59,7 @@ public partial class MainView : UserControl
         }
         if (source.Equals(BuildB2))
         {
-            myBuildingView = new BuildingView(myGame, myGame.myVillage.Barracks);
+            myBuildingView = new BuildingView(myGame.myVillage, myGame.myVillage.Barracks);
         }
         if (source.Equals(BuildB3))
         {
@@ -54,7 +71,7 @@ public partial class MainView : UserControl
         }
         if (source.Equals(BuildC1))
         {
-            myBuildingView = new BuildingView(myGame, myGame.myVillage.CoinsA);
+            myBuildingView = new BuildingView(myGame.myVillage, myGame.myVillage.CoinsA);
         }
         if (source.Equals(BuildC2))
         {
@@ -66,11 +83,11 @@ public partial class MainView : UserControl
         }
         if (source.Equals(BuildC4))
         {
-            myBuildingView = new BuildingView(myGame, myGame.myVillage.CoinsB);
+            myBuildingView = new BuildingView(myGame.myVillage, myGame.myVillage.CoinsB);
         }
         if (source.Equals(BuildD1))
         {
-            myBuildingView = new BuildingView(myGame, myGame.myVillage.FarmA);
+            myBuildingView = new BuildingView(myGame.myVillage, myGame.myVillage.FarmA);
         }
         if (source.Equals(BuildD2))
         {
@@ -82,7 +99,7 @@ public partial class MainView : UserControl
         }
         if (source.Equals(BuildD4))
         {
-            myBuildingView = new BuildingView(myGame, myGame.myVillage.FarmB);
+            myBuildingView = new BuildingView(myGame.myVillage, myGame.myVillage.FarmB);
         }
 
         MainLabel.Content = myBuildingView;
@@ -103,7 +120,7 @@ public partial class MainView : UserControl
         CoinsLabel.Content = "Coins: " + myGame.myVillage.Coins;
         CoinsPerTurnLabel.Content = "(+" + myGame.myVillage.CoinsPerTurn() + ")";
         FoodLabel.Content = "Food: " + myGame.myVillage.Food;
-        FoodPerTurnLabel.Content = "(" + myGame.myVillage.FoodPerTurn() + ")";
+        FoodPerTurnLabel.Content = "(+" + myGame.myVillage.FoodPerTurn() + ")";
         MeleeLabel.Content = "Army: " + myGame.myVillage.MeleeUnits.Count;
         RangeLabel.Content = "Range: " + myGame.myVillage.RangeUnits.Count;
     }
@@ -114,71 +131,72 @@ public partial class MainView : UserControl
         RefreshBase = myGame.myVillage.TowerA;
         BuildA1.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level
             + "\nDamage: " + myGame.myVillage.TowerA.Combat.DamageValue
-            + "\nArmour: " + myGame.myVillage.TowerA.Combat.ArmourValue
-            + "\n(" + RefreshBase.UpgradeCost + ")";
+            + "\nArmour: " + myGame.myVillage.TowerA.Combat.ArmourValue;
 
         RefreshBase = myGame.myVillage.GateA;
         BuildA2.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level
             + "\nDamage: " + myGame.myVillage.GateA.Combat.DamageValue
-            + "\nArmour: " + myGame.myVillage.GateA.Combat.ArmourValue
-            + "\n(" + RefreshBase.UpgradeCost + ")";
+            + "\nArmour: " + myGame.myVillage.GateA.Combat.ArmourValue;
 
         RefreshBase = myGame.myVillage.GateB;
         BuildA3.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level
             + "\nDamage: " + myGame.myVillage.GateB.Combat.DamageValue
-            + "\nArmour: " + myGame.myVillage.GateB.Combat.ArmourValue
-            + "\n(" + RefreshBase.UpgradeCost + ")";
+            + "\nArmour: " + myGame.myVillage.GateB.Combat.ArmourValue;
 
         RefreshBase = myGame.myVillage.TowerB;
         BuildA4.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level
             + "\nDamage: " + myGame.myVillage.TowerB.Combat.DamageValue
-            + "\nArmour: " + myGame.myVillage.TowerB.Combat.ArmourValue
-            + "\n(" + RefreshBase.UpgradeCost + ")";
+            + "\nArmour: " + myGame.myVillage.TowerB.Combat.ArmourValue;
 
         RefreshBase = myGame.myVillage.Barracks;
-        BuildB2.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level
-            + "\n(" + RefreshBase.UpgradeCost + ")";
+        BuildB2.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level;
 
         RefreshBase = myGame.myVillage.CoinsA;
         BuildC1.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level
-            + "\nCoins: " + myGame.myVillage.CoinsA.ResourceInc
-            + "\n(" + RefreshBase.UpgradeCost + ")";
+            + "\nCoins: " + myGame.myVillage.CoinsA.ResourceInc;
 
         RefreshBase = myGame.myVillage.CoinsB;
         BuildC4.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level
-            + "\nCoins: " + myGame.myVillage.CoinsB.ResourceInc
-            + "\n(" + RefreshBase.UpgradeCost + ")";
+            + "\nCoins: " + myGame.myVillage.CoinsB.ResourceInc;
 
         RefreshBase = myGame.myVillage.FarmA;
         BuildD1.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level
-            + "\nCoins: " + myGame.myVillage.FarmA.ResourceInc
-            + "\n(" + RefreshBase.UpgradeCost + ")";
+            + "\nCoins: " + myGame.myVillage.FarmA.ResourceInc;
 
         RefreshBase = myGame.myVillage.FarmB;
         BuildD4.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level
-            + "\nCoins: " + myGame.myVillage.FarmB.ResourceInc
-            + "\n(" + RefreshBase.UpgradeCost + ")";
+            + "\nCoins: " + myGame.myVillage.FarmB.ResourceInc;
 
     }
     public void NextTurnButtonClicked(object source, RoutedEventArgs args)
     {
         myGame.NextTurn();
+        MainLabel.IsVisible = false;
+        MainGrid.IsVisible = true;
+        if (myGame.IsStartBattle())
+        {
+            myBattleView = new BattleView(this);
+            MainLabel.Content = myBattleView;
+
+            MainGrid.IsVisible = false;
+            MainLabel.IsVisible = true;
+        }
         Refresh();
     }
     public void HomeButtonClicked(object source, RoutedEventArgs args)
     {
-        Refresh();
         MainLabel.IsVisible = false;
         MainGrid.IsVisible = true;
+        NextTurnButton.IsVisible = true;
+        Refresh();
     }
     public void NewGameButtonClicked(object source, RoutedEventArgs args)
     {
         myGame.NewGame();
-        Refresh();
+        HomeButtonClicked(source, args);
     }
     public void FormLoad(object source, RoutedEventArgs args)
-    {
-        myGame.NewGame();
+    {        
         Refresh();
     }
     public void ExitButtonClicked(object source, RoutedEventArgs args)

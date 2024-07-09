@@ -15,10 +15,10 @@ namespace VillageDefence.Models.Structures
         public HealthBar Health = new HealthBar(100);
 
         public abstract bool Upgrade();
-        public abstract bool FuncA();
-        public abstract bool FuncB();
-        public abstract String CreateTextFuncA();
-        public abstract String CreateTextFuncB();
+        public abstract bool FuncA(Village myVillage);
+        public abstract bool FuncB(Village myVillage);
+        public abstract String CreateTextFuncA(Village myVillage);
+        public abstract String CreateTextFuncB(Village myVillage);
         public abstract String CreateLabelA();
         public abstract String CreateLabelAValue();
         public abstract String CreateLabelB();

@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="VillageDefence.Views.BattleView">
+  
+    <UserControl.Styles>
+      <StyleInclude Source="/VillageStyles.axaml" />
+    </UserControl.Styles>
+
+  <StackPanel>
+    <Grid Classes="g1"
+      ColumnDefinitions="400"
+      RowDefinitions="100,50,300">
+      <!--Attack forces (1x4)-->
+      <Grid Classes="g1"
+      ColumnDefinitions="100,100,100,100"
+      RowDefinitions="100"
+      Grid.Row="0" Grid.Column="0">
+        <Button Name="AttackMeleeButton" Classes="Army"
+          Click="ButtonClicked"
+          Grid.Row="0" Grid.Column="1">
+        </Button>
+        <Button Name="AttackRangeButton" Classes="Army"
+          Click="ButtonClicked"
+          Grid.Row="0" Grid.Column="2">
+        </Button>
+      </Grid>
+      <!--Middle row-->
+      <Grid Classes="g1"
+      ColumnDefinitions="100,200,100"
+      RowDefinitions="50"
+      Grid.Row="1" Grid.Column="0">
+        <Label Name="OutputLabel"
+          Grid.Row="0" Grid.Column="1">
+          Fight!
+        </Label>
+      </Grid>
+      <!--My forces (3x4)-->
+      <Grid Classes="g1"
+      ColumnDefinitions="100,100,100,100"
+      RowDefinitions="100,100,100"
+      Grid.Row="2" Grid.Column="0">
+        <Button Name="MyMeleeButton" Classes="Army"
+          Grid.Row="1" Grid.Column="1">          
+        </Button>
+        <Button Name="MyRangeButton" Classes="Army"
+          Click="ButtonClicked"
+          Grid.Row="1" Grid.Column="2">          
+        </Button>
+      </Grid>
+    </Grid>
+   </StackPanel>
+</UserControl>

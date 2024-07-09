@@ -13,11 +13,11 @@ namespace VillageDefence.Models.Structures
         {
             return false;
         }
-        public override bool FuncA()
+        public override bool FuncA(Village myVillage)
         {
             return false;
         }
-        public override bool FuncB()
+        public override bool FuncB(Village myVillage)
         {
             return false;
         }
@@ -53,11 +53,11 @@ namespace VillageDefence.Models.Structures
         {
             return " ";
         }
-        public override String CreateTextFuncA()
+        public override String CreateTextFuncA(Village myVillage)
         {
             return " ";
         }
-        public override String CreateTextFuncB()
+        public override String CreateTextFuncB(Village myVillage)
         {
             return " ";
         }
