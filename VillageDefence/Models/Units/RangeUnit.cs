@@ -11,10 +11,11 @@ namespace VillageDefence.Models.Units
 
         public override void SetInitDetails()
         {
+            Name = "Range";
             CoinCost = 8;
             FoodCost = 5;
             CombatStats.DamageType = 2;
-            CombatStats.DamageValue = 3;
+            CombatStats.DamageValue = 5;
             CombatStats.ArmourType = 1;
             CombatStats.ArmourValue = 0;
         }

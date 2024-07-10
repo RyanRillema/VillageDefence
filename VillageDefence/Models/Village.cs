@@ -29,7 +29,6 @@ namespace VillageDefence.Models
 
         private int CoinsInc = 2;
         private int FoodInc = 1;
-               
 
         public void NextTurn()
         {
@@ -73,7 +72,8 @@ namespace VillageDefence.Models
             FarmB.Upgrade();
 
             //Add some units
-            MeleeUnits.Count = 5;
+            MeleeUnits.Count = 4;
+            RangeUnits.Count = 2;
         }
     }
 }

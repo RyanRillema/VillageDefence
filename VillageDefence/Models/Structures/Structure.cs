@@ -20,9 +20,9 @@ namespace VillageDefence.Models.Structures
         public abstract String CreateTextFuncA(Village myVillage);
         public abstract String CreateTextFuncB(Village myVillage);
         public abstract String CreateLabelA();
-        public abstract String CreateLabelAValue();
+        public abstract String CreateLabelAValue(Village myVillage);
         public abstract String CreateLabelB();
-        public abstract String CreateLabelBValue();
+        public abstract String CreateLabelBValue(Village myVillage);
         public abstract String CreateLabelC();
         public abstract String CreateLabelCValue();
         public abstract String CreateLabelD();

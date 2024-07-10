@@ -12,7 +12,6 @@ namespace VillageDefence.Models
         public int Turn = 0;
         public bool StartBattle=false;
         public Village myVillage = new Village();
-        public Battle myBattle = new Battle();
 
         public void NextTurn()
         {
@@ -20,7 +19,6 @@ namespace VillageDefence.Models
             Turn++;
             if (SpinBattle())
             {
-                myBattle.SetupBattle(myVillage, Turn);
                 StartBattle = true;
             }else
             {

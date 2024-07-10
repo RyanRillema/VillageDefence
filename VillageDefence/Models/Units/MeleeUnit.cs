@@ -14,9 +14,9 @@ namespace VillageDefence.Models.Units
             CoinCost = 5;
             FoodCost = 5;
             CombatStats.DamageType = 1;
-            CombatStats.DamageValue = 2;
+            CombatStats.DamageValue = 3;
             CombatStats.ArmourType = 1;
-            CombatStats.ArmourValue = 0;
+            CombatStats.ArmourValue = 1;
         }
     }
 }

@@ -23,15 +23,15 @@ namespace VillageDefence.Models.Structures
             switch (Type)
             {
                 case 1:                     
-                    return "Coins:";
+                    return "Coins/turn:";
                 case 2:
-                    return "Food:";
+                    return "Food/turn:";
 
                 default:
                     return "";
             }
         }
-        public override String CreateLabelAValue()
+        public override String CreateLabelAValue(Village myVillage)
         {
             return ResourceInc.ToString();
         }        
@@ -75,7 +75,7 @@ namespace VillageDefence.Models.Structures
                 case 3:
                     Name = "Bronze rock";
                     UpgradeCost = 100;
-                    ResourceInc = 6;
+                    ResourceInc = 7;
                     return true;
                 case 4:
                     Name = "Bronze mine";
@@ -84,8 +84,18 @@ namespace VillageDefence.Models.Structures
                     return true;
                 case 5:
                     Name = "Silver scratch";
-                    UpgradeCost = 999;
+                    UpgradeCost = 200;
                     ResourceInc = 15;
+                    return true;
+                case 6:
+                    Name = "Silver rock";
+                    UpgradeCost = 250;
+                    ResourceInc = 20;
+                    return true;
+                case 7:
+                    Name = "Silver Mine";
+                    UpgradeCost = 999;
+                    ResourceInc = 25;
                     return true;
                 default:
                     return false;
@@ -113,17 +123,17 @@ namespace VillageDefence.Models.Structures
                 case 3:
                     Name = "Small crops";
                     UpgradeCost = 100;
-                    ResourceInc = 3;
+                    ResourceInc = 5;
                     return true;
                 case 4:
                     Name = "Medium crops";
                     UpgradeCost = 150;
-                    ResourceInc = 5;
+                    ResourceInc = 8;
                     return true;
                 case 5:
                     Name = "Large crops";
                     UpgradeCost = 999;
-                    ResourceInc = 7;
+                    ResourceInc = 12;
                     return true;
                 default:
                     return false;

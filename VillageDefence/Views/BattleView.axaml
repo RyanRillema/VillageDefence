@@ -18,21 +18,25 @@
       ColumnDefinitions="100,100,100,100"
       RowDefinitions="100"
       Grid.Row="0" Grid.Column="0">
-        <Button Name="AttackMeleeButton" Classes="Army"
+        <Button Name="AttackRangeButton" Classes="Army"
           Click="ButtonClicked"
           Grid.Row="0" Grid.Column="1">
         </Button>
-        <Button Name="AttackRangeButton" Classes="Army"
+        <Button Name="AttackMeleeButton" Classes="Army"
           Click="ButtonClicked"
           Grid.Row="0" Grid.Column="2">
         </Button>
       </Grid>
       <!--Middle row-->
       <Grid Classes="g1"
-      ColumnDefinitions="100,200,100"
+      ColumnDefinitions="200,200"
       RowDefinitions="50"
       Grid.Row="1" Grid.Column="0">
-        <Label Name="OutputLabel"
+        <Label Name="OutputLabelA" Classes ="BattleOutput"
+          Grid.Row="0" Grid.Column="0">
+          Fight!
+        </Label>
+        <Label Name="OutputLabelB" Classes ="BattleOutput"
           Grid.Row="0" Grid.Column="1">
           Fight!
         </Label>
@@ -42,10 +46,11 @@
       ColumnDefinitions="100,100,100,100"
       RowDefinitions="100,100,100"
       Grid.Row="2" Grid.Column="0">
-        <Button Name="MyMeleeButton" Classes="Army"
-          Grid.Row="1" Grid.Column="1">          
-        </Button>
         <Button Name="MyRangeButton" Classes="Army"
+          Click="ButtonClicked"
+          Grid.Row="1" Grid.Column="1">
+        </Button>
+        <Button Name="MyMeleeButton" Classes="Army"
           Click="ButtonClicked"
           Grid.Row="1" Grid.Column="2">          
         </Button>

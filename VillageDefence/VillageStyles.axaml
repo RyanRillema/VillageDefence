@@ -3,12 +3,14 @@
     <Design.PreviewWith>
         <Border Padding="20">
             <!-- Add Controls for Previewer Here -->
+          <Label Classes ="BattleOutput">
+            Test
+          </Label>
         </Border>
     </Design.PreviewWith>
 
     <!-- Add Styles Here -->
     <Style Selector="Grid.g1">
-      <Setter Property="ShowGridLines" Value="True"/>
     </Style>
     <Style Selector="Button.Building">
       <Setter Property="Background" Value="BurlyWood"/>
@@ -27,6 +29,8 @@
       <Setter Property="HorizontalAlignment" Value="Center"/>
       <Setter Property="VerticalAlignment" Value="Center"/>
       <Setter Property="FontSize" Value="12"/>
+      <Setter Property="BorderBrush" Value="Green"/>
+      <Setter Property="BorderThickness" Value="0"/>
     </Style>
     <Style Selector="Button.Main">
       <Setter Property="Margin" Value="2"/>
@@ -45,7 +49,10 @@
     </Style>
     <Style Selector="Label.stats">
       <Setter Property="Background" Value="AliceBlue"/>
-    </Style>    
+    </Style>
+    <Style Selector="Label.BattleOutput">
+      <Setter Property="FontSize" Value="10"/>
+    </Style>
     <Style Selector="Label.Name">
       <Setter Property="Background" Value="AliceBlue"/>
       <Setter Property="FontSize" Value="24"/>
@@ -53,15 +60,18 @@
       <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
     <Style Selector="Label.River">
-      <Setter Property="Background" Value="AliceBlue"/>
+      <Setter Property="Background" Value="CornflowerBlue"/>
       <Setter Property="HorizontalAlignment" Value="Stretch"/>
       <Style.Animations>
         <Animation IterationCount="INFINITE" Duration="0:0:3">
           <KeyFrame Cue="0%">
             <Setter Property="Opacity" Value="0.5"/>
           </KeyFrame>
-          <KeyFrame Cue="100%">
+          <KeyFrame Cue="50%">
             <Setter Property="Opacity" Value="1.0"/>
+          </KeyFrame>
+          <KeyFrame Cue="100%">
+            <Setter Property="Opacity" Value="0.5"/>
           </KeyFrame>
         </Animation>
       </Style.Animations>

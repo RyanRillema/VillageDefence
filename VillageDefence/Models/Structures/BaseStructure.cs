@@ -25,7 +25,7 @@ namespace VillageDefence.Models.Structures
         {
            return " ";
         }
-        public override String CreateLabelAValue()
+        public override String CreateLabelAValue(Village myVillage)
         {
             return " ";
         }
@@ -33,7 +33,7 @@ namespace VillageDefence.Models.Structures
         {
             return "";
         }
-        public override String CreateLabelBValue()
+        public override String CreateLabelBValue(Village myVillage)
         {
             return "";
         }

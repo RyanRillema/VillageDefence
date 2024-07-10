@@ -21,7 +21,7 @@ namespace VillageDefence.Models.Structures
         {
             return "Damage:";
         }
-        public override String CreateLabelAValue()
+        public override String CreateLabelAValue(Village myVillage)
         {
             return Combat.DamageValue.ToString();
         }
@@ -29,7 +29,7 @@ namespace VillageDefence.Models.Structures
         {
             return "Type";
         }
-        public override String CreateLabelBValue()
+        public override String CreateLabelBValue(Village myVillage)
         {
             return Combat.DamageType.ToString();
         }

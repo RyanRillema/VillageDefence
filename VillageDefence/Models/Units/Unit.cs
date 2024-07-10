@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,28 +19,39 @@ namespace VillageDefence.Models.Units
         public HealthBar Health = new HealthBar(5);
 
         public abstract void SetInitDetails();
-        
-        public bool DoDamage(int Damage)
+        public bool DoDamage(int Damage,ref int DamageDone)
         {
-            int TotalHealth = ((Count - 1) * Health.TotalHealth) + Health.CurrentHealth;
-            if (TotalHealth > Damage)
+            // Return TRUE if unit count reaches 0
+
+            Debug.Assert((Count>0),"Cannot call damage on unit with 0 count");
+
+            DamageDone = 0;
+
+            while (Damage > 0)
             {
-                if (Health.CurrentHealth < Damage)
+                if (Health.CurrentHealth + CombatStats.ArmourValue > Damage)
                 {
-                    Damage -= Health.CurrentHealth;
+                    Health.CurrentHealth -= (Damage - CombatStats.ArmourValue);
+                    DamageDone += Damage - CombatStats.ArmourValue;
+                    Damage = 0;
+                }
+                else
+                {
+                    // Reduce damage by health and armour
+                    Damage -= (Health.CurrentHealth + CombatStats.ArmourValue);
+                    // Damage done is only to health
+                    DamageDone += (Health.CurrentHealth);
+                    Health.CurrentHealth = Health.TotalHealth;
                     Count--;
                 }
-                int DamageWhole = Damage / Health.TotalHealth;
-                Count -= DamageWhole;
-                Damage -= (DamageWhole * Health.TotalHealth);
-                Health.CurrentHealth = Health.TotalHealth - Damage;
-                return true;
+
+                if (Count == 0)
+                {
+                    return true;
+                }
             }
-            else
-            {
-                Count = 0;
-                return false;
-            }
+
+            return false;
         }
     }
 }

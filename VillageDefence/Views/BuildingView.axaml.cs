@@ -20,9 +20,9 @@ namespace VillageDefence.Views
         {
             LabelName.Content = myBuilding.Name;
             LabelA.Content = myBuilding.CreateLabelA();
-            LabelAValue.Content = myBuilding.CreateLabelAValue();
+            LabelAValue.Content = myBuilding.CreateLabelAValue(myVillage);
             LabelB.Content = myBuilding.CreateLabelB();
-            LabelBValue.Content = myBuilding.CreateLabelBValue();
+            LabelBValue.Content = myBuilding.CreateLabelBValue(myVillage);
             LabelC.Content = myBuilding.CreateLabelC();
             LabelCValue.Content = myBuilding.CreateLabelCValue();
             LabelD.Content = myBuilding.CreateLabelD();
@@ -35,6 +35,7 @@ namespace VillageDefence.Views
 
             FuncBButton.Content = myBuilding.CreateTextFuncB(myVillage);
             FuncBButton.IsVisible = !(FuncBButton.Content.ToString() == " ");
+
         }
         public void UpgradeButtonClicked(object source, RoutedEventArgs args)
         {
