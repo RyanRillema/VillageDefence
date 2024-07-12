@@ -156,7 +156,7 @@
               Grid.Row="0" Grid.Column="0">
               <!--left bottom labels-->
               <Grid Classes="g1"
-              ColumnDefinitions="75,75"
+              ColumnDefinitions="100,50"
               RowDefinitions ="25,25,25,25"
               Grid.Row="0" Grid.Column="0">
                 <Label Name="TurnLabel" Classes="stats"

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VillageDefence.Models.Units
 {
-    public class RangeUnit() : Unit
+    public class RangeUnit : Unit
     {
 
         public override void SetInitDetails()
@@ -14,6 +14,7 @@ namespace VillageDefence.Models.Units
             Name = "Range";
             CoinCost = 8;
             FoodCost = 5;
+            Level = 1;
             CombatStats.DamageType = 2;
             CombatStats.DamageValue = 5;
             CombatStats.ArmourType = 1;

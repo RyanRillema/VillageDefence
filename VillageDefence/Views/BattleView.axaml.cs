@@ -1,7 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System;
 using VillageDefence.Models;
+using VillageDefence.Models.BaseModels;
 using VillageDefence.Models.Units;
 
 namespace VillageDefence.Views
@@ -26,7 +28,7 @@ namespace VillageDefence.Views
             myParent.ShowHome(true);
             myParent.LoadMainView();
         }
-        public void UnitButtonClicked(object source, RoutedEventArgs args)
+        public void ButtonClicked(object source, RoutedEventArgs args)
         {
             if (source.Equals(AttackMeleeButton))
             {
@@ -47,65 +49,35 @@ namespace VillageDefence.Views
         }        
         public void Refresh()
         {
-            AttackMeleeButton.Content = myBattle.AttackMelee.Name + "\nAttack: " + myBattle.AttackMelee.CombatStats.DamageValue
-                + "\nDefence: " + myBattle.AttackMelee.CombatStats.ArmourValue
-                + "\nCount: " + myBattle.AttackMelee.Count
-                + "\nHealth: " + myBattle.AttackMelee.Health.CurrentHealth + " / "+ myBattle.AttackMelee.Health.TotalHealth;
-            if (myBattle.AttackMelee.Count < 1)
-            {
-                AttackMeleeButton.IsEnabled = false;
-            }
-            else
-            {
-                AttackMeleeButton.IsEnabled = true;
-            }
+            RefreshButton(AttackMeleeButton, myBattle.AttackMelee);
+            RefreshButton(AttackRangeButton, myBattle.AttackRange);
 
-            AttackRangeButton.Content = myBattle.AttackRange.Name + "\nAttack: " + myBattle.AttackRange.CombatStats.DamageValue
-                + "\nDefence: " + myBattle.AttackRange.CombatStats.ArmourValue
-                + "\nCount: " + myBattle.AttackRange.Count
-                + "\nHealth: " + myBattle.AttackRange.Health.CurrentHealth + " / " + myBattle.AttackRange.Health.TotalHealth;
-            if (myBattle.AttackRange.Count < 1)
-            {
-                AttackRangeButton.IsEnabled = false;
-            }
-            else
-            {
-                AttackRangeButton.IsEnabled = true;
-            }
-
-            MyMeleeButton.Content = myBattle.MyMelee.Name + "\nAttack: " + myBattle.MyMelee.CombatStats.DamageValue
-                + "\nDefence: " + myBattle.MyMelee.CombatStats.ArmourValue
-                + "\nCount: " + myBattle.MyMelee.Count
-                + "\nHealth: " + myBattle.MyMelee.Health.CurrentHealth + " / " + myBattle.MyMelee.Health.TotalHealth;
-            if (myBattle.MyMelee.Count < 1)
-            {
-               MyMeleeButton.IsEnabled = false;
-            }
-            else
-            {
-                MyMeleeButton.IsEnabled = true;
-            }
-
-            MyRangeButton.Content = myBattle.MyRange.Name + "\nAttack: " + myBattle.MyRange.CombatStats.DamageValue
-                + "\nDefence: " + myBattle.MyRange.CombatStats.ArmourValue
-                + "\nCount: " + myBattle.MyRange.Count
-                + "\nHealth: " + myBattle.MyRange.Health.CurrentHealth + " / " + myBattle.MyRange.Health.TotalHealth;
-            if (myBattle.MyRange.Count < 1)
-            {
-                MyRangeButton.IsEnabled = false;
-            }
-            else
-            {
-                MyRangeButton.IsEnabled = true;
-            }
+            RefreshButton(MyTowerAButton, myBattle.MyTowerA);
+            RefreshButton(MyTowerBButton, myBattle.MyTowerB);
+            RefreshButton(MyMeleeButton, myBattle.MyMelee);
+            RefreshButton(MyRangeButton, myBattle.MyRange);
 
             OutputLabelA.Content = myBattle.OutputA + "\n" + myBattle.OutputB + "\n" + myBattle.OutputC;
             OutputLabelB.Content = myBattle.OutputD + "\n" + myBattle.OutputE + "\n" + myBattle.OutputF;
+        }
+        private void RefreshButton(Button RefreshButton, BaseModel RefreshUnit)
+        {
+            RefreshButton.Content = RefreshUnit.GetButtonLabel();
+            if (RefreshUnit.Count < 1)
+            {
+                RefreshButton.IsEnabled = false;
+            }
+            else
+            {
+                RefreshButton.IsEnabled = true;
+            }
         }
         public void ClearButtonHighlight()
         {
             MyMeleeButton.BorderThickness = Avalonia.Thickness.Parse("0");
             MyRangeButton.BorderThickness = Avalonia.Thickness.Parse("0");
+            MyTowerAButton.BorderThickness = Avalonia.Thickness.Parse("0");
+            MyTowerBButton.BorderThickness = Avalonia.Thickness.Parse("0");
         }
 
     }

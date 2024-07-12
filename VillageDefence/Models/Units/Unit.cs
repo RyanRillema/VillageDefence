@@ -8,22 +8,13 @@ using VillageDefence.Models.BaseModels;
 
 namespace VillageDefence.Models.Units
 {
-    public abstract class Unit()
+    public abstract class Unit : BaseUnit
     {
-        public string Name = "";
-        public int Level = 0;
-        public int Count = 0;
-        public int CoinCost = 0;
-        public int FoodCost = 0;
-        public Combat CombatStats = new Combat();
-        public HealthBar Health = new HealthBar(5);
-
-        public abstract void SetInitDetails();
-        public bool DoDamage(int Damage,ref int DamageDone)
+        public override bool DoDamage(int Damage, ref int DamageDone)
         {
             // Return TRUE if unit count reaches 0
 
-            Debug.Assert((Count>0),"Cannot call damage on unit with 0 count");
+            Debug.Assert(Count > 0, "Cannot call damage on unit with 0 count");
 
             DamageDone = 0;
 
@@ -31,16 +22,16 @@ namespace VillageDefence.Models.Units
             {
                 if (Health.CurrentHealth + CombatStats.ArmourValue > Damage)
                 {
-                    Health.CurrentHealth -= (Damage - CombatStats.ArmourValue);
+                    Health.CurrentHealth -= Damage - CombatStats.ArmourValue;
                     DamageDone += Damage - CombatStats.ArmourValue;
                     Damage = 0;
                 }
                 else
                 {
                     // Reduce damage by health and armour
-                    Damage -= (Health.CurrentHealth + CombatStats.ArmourValue);
+                    Damage -= Health.CurrentHealth + CombatStats.ArmourValue;
                     // Damage done is only to health
-                    DamageDone += (Health.CurrentHealth);
+                    DamageDone += Health.CurrentHealth;
                     Health.CurrentHealth = Health.TotalHealth;
                     Count--;
                 }
@@ -52,6 +43,25 @@ namespace VillageDefence.Models.Units
             }
 
             return false;
+        }
+        public override String GetButtonLabel()
+        {
+            String ReturnString;
+            if (Level > 0)
+            {
+                ReturnString = Name + "\nDamage: " + CombatStats.DamageValue + "\nArmour: " + CombatStats.ArmourValue
+                + "\nCount: " + Count + "\nHealth: " + Health.CurrentHealth + " / " + Health.TotalHealth;
+            }
+            else
+            {
+                ReturnString = Name;
+            }
+
+            return ReturnString;
+        }
+        public override void SetInitDetails()
+        {
+
         }
     }
 }

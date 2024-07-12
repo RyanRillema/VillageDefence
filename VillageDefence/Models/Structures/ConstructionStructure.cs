@@ -8,7 +8,7 @@ using VillageDefence.Models.Units;
 
 namespace VillageDefence.Models.Structures
 {
-    public class ConstructionStructure(int NewType) : BaseStructure
+    public class ConstructionStructure(int NewType) : Structure
     {
         // private Unit myUnit= new Unit();
         // Type: 1-Barracks, 2-Archery Range
@@ -53,24 +53,10 @@ namespace VillageDefence.Models.Structures
         {
             switch (Type)
             {
-                case 1:
-                    if (Level > 0)
-                    {
-                        return "Train Melee";
-                    }
-                    else
-                    {
-                        return " ";
-                    }
+                case 1:                    
+                    return StringReturnCheckLevel("Train Melee");
                 case 2:
-                    if (Level > 0)
-                    {
-                        return "Train Range";
-                    }
-                    else
-                    {
-                        return " ";
-                    }
+                    return StringReturnCheckLevel("Train Range");
                 default:
                     return " ";
             }
@@ -82,7 +68,7 @@ namespace VillageDefence.Models.Structures
                 case 1:
                     if (Level > 0)
                     {
-                        return "Melee";
+                        return StringReturnCheckLevel("Melee");
                     }
                     else
                     {
@@ -91,7 +77,7 @@ namespace VillageDefence.Models.Structures
                 case 2:
                     if (Level > 0)
                     {
-                        return "Range";
+                        return StringReturnCheckLevel("Range");
                     }
                     else
                     {
@@ -106,23 +92,9 @@ namespace VillageDefence.Models.Structures
             switch (Type)
             {
                 case 1:
-                    if (Level > 0)
-                    {
-                        return "Coins: " + myVillage.MeleeUnits.CoinCost.ToString();
-                    }
-                    else
-                    {
-                        return " ";
-                    }
+                    return StringReturnCheckLevel("Coins: " + myVillage.MeleeUnits.CoinCost.ToString());
                 case 2:
-                    if (Level > 0)
-                    {
-                        return "Coins: " + myVillage.RangeUnits.CoinCost.ToString();
-                    }
-                    else
-                    {
-                        return " ";
-                    }
+                    return StringReturnCheckLevel("Coins: " + myVillage.RangeUnits.CoinCost.ToString());
                 default:
                     return " ";
             }
@@ -132,27 +104,31 @@ namespace VillageDefence.Models.Structures
             switch (Type)
             {
                 case 1:
-                    if (Level > 0)
-                    {
-                        return "Food: " + myVillage.MeleeUnits.FoodCost.ToString();
-                    }
-                    else
-                    {
-                        return " ";
-                    }
+                    return StringReturnCheckLevel("Food: " + myVillage.MeleeUnits.FoodCost.ToString());
                 case 2:
-                    if (Level > 0)
-                    {
-                        return "Food: " + myVillage.RangeUnits.FoodCost.ToString();
-                    }
-                    else
-                    {
-                        return " ";
-                    }
+                    return StringReturnCheckLevel("Food: " + myVillage.RangeUnits.FoodCost.ToString());
                 default:
                     return " ";
             }
-        }         
+        }
+        public override String GetButtonLabel()
+        {
+            String ReturnString;
+            if (Level > 0)
+            {
+                ReturnString = Name + "\nLevel: " + Level;
+            }
+            else
+            {
+                ReturnString = Name;
+            }
+
+            return ReturnString;
+        }
+        public override void SetInitDetails()
+        {
+            SetRawData(Type, Level);
+        }
         private bool SetRawData(int RawType, int RawLevel)
         {
             Type = RawType;
@@ -175,11 +151,12 @@ namespace VillageDefence.Models.Structures
             switch (RawLevel)
             {
                 case 0:
-                    Name = "Dirt";
+                    Name = "Build site";
                     UpgradeCost = 20;
                     return true;
                 case 1:
                     Name = "Barracks";
+                    Count = 1;
                     UpgradeCost = 999;
                     return true;
                 default:
@@ -191,11 +168,12 @@ namespace VillageDefence.Models.Structures
             switch (RawLevel)
             {
                 case 0:
-                    Name = "Dirt";
+                    Name = "Build site";
                     UpgradeCost = 40;
                     return true;
                 case 1:
                     Name = "ArcherRange";
+                    Count = 1;
                     UpgradeCost = 999;
                     return true;
                 default:

@@ -62,16 +62,16 @@ namespace VillageDefence.Models
             RangeUnits.SetInitDetails();
 
             //Upgrade to set intial values
-            TowerA.Upgrade();
-            TowerB.Upgrade();
-            GateA.Upgrade();
-            GateB.Upgrade();
-            Barracks.Upgrade();
-            Archery.Upgrade();
-            CoinsA.Upgrade();
-            CoinsB.Upgrade();
-            FarmA.Upgrade();
-            FarmB.Upgrade();
+            TowerA.SetInitDetails();
+            TowerB.SetInitDetails();
+            GateA.SetInitDetails();
+            GateB.SetInitDetails();
+            Barracks.SetInitDetails();
+            Archery.SetInitDetails();
+            CoinsA.SetInitDetails();
+            CoinsB.SetInitDetails();
+            FarmA.SetInitDetails();
+            FarmB.SetInitDetails();
 
             //Add some units
             MeleeUnits.Count = 4;

@@ -8,7 +8,7 @@ using VillageDefence.Models.BaseModels;
 
 namespace VillageDefence.Models.Structures
 {
-    public class ResourceStructure(int NewType) : BaseStructure
+    public class ResourceStructure(int NewType) : Structure
     {
         // Type: 1-Coins, 2-Food
         public int Type = NewType;
@@ -23,9 +23,9 @@ namespace VillageDefence.Models.Structures
             switch (Type)
             {
                 case 1:                     
-                    return "Coins/turn:";
+                    return StringReturnCheckLevel("Coins/turn:");
                 case 2:
-                    return "Food/turn:";
+                    return StringReturnCheckLevel("Food/turn:");
 
                 default:
                     return "";
@@ -33,8 +33,35 @@ namespace VillageDefence.Models.Structures
         }
         public override String CreateLabelAValue(Village myVillage)
         {
-            return ResourceInc.ToString();
-        }        
+            return StringReturnCheckLevel(ResourceInc.ToString());
+        }
+        public override String GetButtonLabel()
+        {
+            String ReturnString;
+            String TypeLabel;
+            if (Level > 0)
+            {
+                if (Type == 1)
+                {
+                    TypeLabel = "Coins";
+                }
+                else
+                {
+                    TypeLabel = "Food";
+                }
+                ReturnString = Name + "\nLevel: " + Level + "\n" + TypeLabel + ": " + ResourceInc;
+            }
+            else
+            {
+                ReturnString = Name;
+            }
+
+            return ReturnString;
+        }
+        public override void SetInitDetails()
+        {
+            SetRawData(Type, Level);
+        }
         private bool SetRawData(int RawType, int RawLevel)
         {
             Type = RawType;
@@ -59,11 +86,11 @@ namespace VillageDefence.Models.Structures
             switch (RawLevel)
             {
                 case 0:
-                    Name = "Dirt";
+                    Name = "Rocks";
                     UpgradeCost = 10;
                     return true;
                 case 1:
-                    Name = "Rocks";
+                    Name = "Shiny rocks";
                     UpgradeCost = 30;
                     ResourceInc = 1;
                     return true;
@@ -106,7 +133,7 @@ namespace VillageDefence.Models.Structures
             switch (RawLevel)
             {
                 case 0:
-                    Name = "Dirt";
+                    Name = "Soil";
                     UpgradeCost = 10;
                     ResourceInc = 0;
                     return true;

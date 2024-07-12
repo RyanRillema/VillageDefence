@@ -47,19 +47,19 @@
       RowDefinitions="100,100,100"
       Grid.Row="2" Grid.Column="0">
         <Button Name="MyTowerAButton" Classes="Army"
-          Click="BuildingButtonClicked"
+          Click="ButtonClicked"
           Grid.Row="0" Grid.Column="0">
         </Button>
         <Button Name="MyTowerBButton" Classes="Army"
-          Click="BuildingButtonClicked"
+          Click="ButtonClicked"
           Grid.Row="0" Grid.Column="4">
         </Button>
         <Button Name="MyRangeButton" Classes="Army"
-          Click="UnitButtonClicked"
+          Click="ButtonClicked"
           Grid.Row="1" Grid.Column="1">
         </Button>
         <Button Name="MyMeleeButton" Classes="Army"
-          Click="UnitButtonClicked"
+          Click="ButtonClicked"
           Grid.Row="1" Grid.Column="2">          
         </Button>
       </Grid>

@@ -20,6 +20,10 @@ namespace VillageDefence.Models.BaseModels
         public int TotalHealth = NewHealth;
         public int CurrentHealth = NewHealth;
 
+        public void SetHealth(int SetHealth)
+        {
+            CurrentHealth = TotalHealth = SetHealth;
+        }
     }
 
 }

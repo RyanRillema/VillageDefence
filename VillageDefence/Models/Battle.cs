@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VillageDefence.Models.BaseModels;
 using VillageDefence.Models.Structures;
 using VillageDefence.Models.Units;
 using VillageDefence.Views;
@@ -14,14 +15,11 @@ namespace VillageDefence.Models
     {
         public BattleView ParentBattleView = SetParentBattleView;
         public Village myVillage;
-        public MeleeUnit AttackMelee = new MeleeUnit();
-        public RangeUnit AttackRange = new RangeUnit();
-        public MeleeUnit MyMelee;
-        public RangeUnit MyRange;
-        public DefenseStructure MyTowerA;
-        public DefenseStructure MyTowerB;
+        public BaseModel AttackMelee = new MeleeUnit();
+        public BaseModel AttackRange = new RangeUnit();
+        public BaseModel MyMelee, MyRange, MyTowerA, MyTowerB, MyWallA, MyWallB;
         public int Turn = 0; // 1- MyTowerA, 2-MyTowerB, 3-MyRange, 4-AttRange, 5-MyMelee, 6-AttMelee
-        public Unit AttackUnit, DefendUnit;
+        public BaseModel AttackUnit, DefendUnit;
         public int DamageTotal = 0;
         public String OutputA, OutputB, OutputC, OutputD, OutputE, OutputF;
 
@@ -101,6 +99,7 @@ namespace VillageDefence.Models
             MyMelee = myVillage.MeleeUnits;
             MyRange = myVillage.RangeUnits;
             MyTowerA = myVillage.TowerA;
+            MyTowerB = myVillage.TowerB;
             SetupAttack(Turn);
         }
         public void AttackerAttack()
@@ -113,7 +112,16 @@ namespace VillageDefence.Models
             else if (MyRange.Count > 0)
             {
                 DefendUnit = MyRange;
-            } else
+            }
+            else if (MyTowerA.Count > 0)
+            {
+                DefendUnit = MyTowerA;
+            }
+            else if (MyTowerB.Count > 0)
+            {
+                DefendUnit = MyTowerB;
+            }
+            else
             {
                 Debug.Assert(true,"Cant find unit to attack");
             }
@@ -136,6 +144,10 @@ namespace VillageDefence.Models
         {
             switch (Turn)
             {
+                case 1:
+                    return CheckArmy(MyTowerA);
+                case 2:
+                    return CheckArmy(MyTowerB);
                 case 3:
                     return CheckArmy(MyRange);
                 case 4:
@@ -148,7 +160,7 @@ namespace VillageDefence.Models
                     return false;
             }
         }
-        private bool CheckArmy(Unit CheckArmy)
+        private bool CheckArmy(BaseModel CheckArmy)
         {
             if (CheckArmy.Count > 0)
             {
@@ -160,38 +172,22 @@ namespace VillageDefence.Models
                 return false;
             }
         }
-        private bool CheckBuilding(BaseStructure CheckStructure)
-        {
-            if ((CheckStructure.Level > 0) && (CheckStructure.Health.CurrentHealth > 0))
-            {
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
         public bool CheckEnd()
         {
-            if (AttackMelee.Count < 1)
+            if ((AttackMelee.Count < 1) && (AttackRange.Count < 1))
             {
-                if (AttackRange.Count < 1)
-                {
-                    AddOutput("You win");
-                    ParentBattleView.myParent.ShowHome(true);
-                    return true;
-                }
+                AddOutput("You win");
+                ParentBattleView.myParent.ShowHome(true);
+                return true;
             }
 
-            if (MyMelee.Count < 1)
+            if ((MyMelee.Count < 1) && (MyRange.Count < 1) && (MyTowerA.Count < 1) && (MyTowerB.Count < 1))
+            //&& (MyWallA.Count < 1) && (MyWallB.Count < 1)
             {
-                if (MyRange.Count < 1)
-                {
-                    AddOutput("You lose");
-                    return true;
-                }
+                AddOutput("You lose");
+                return true;
             }
+            
             return false;
         }
         public void AddOutput(String NewOutput)
@@ -221,14 +217,14 @@ namespace VillageDefence.Models
             AttackMelee.Count = rnd.Next(Min, Max);
 
             Max = (Turn / 10);
-            Min = (Turn / 30);
+            Min = (Turn / 20);
             Max = Math.Max(Max, Min);
             AttackRange.Count = rnd.Next(Min, Max);
         }
         private void EndBattle()
         {
-            MyMelee.Health.CurrentHealth = MyMelee.Health.TotalHealth;
-            MyRange.Health.CurrentHealth = MyRange.Health.TotalHealth;
+            //MyMelee.Health.CurrentHealth = MyMelee.Health.TotalHealth;
+            //MyRange.Health.CurrentHealth = MyRange.Health.TotalHealth;
             ParentBattleView.Refresh();
         }
     }
