@@ -11,7 +11,7 @@ namespace VillageDefence.Models.Structures
     public class ConstructionStructure(int NewType) : BaseStructure
     {
         // private Unit myUnit= new Unit();
-        // Type: 1-Barracks
+        // Type: 1-Barracks, 2-Archery Range
         public int Type = NewType;
         public override bool Upgrade()
         {
@@ -19,17 +19,35 @@ namespace VillageDefence.Models.Structures
         }
         public override bool FuncA(Village myVillage)
         {
-            if ((myVillage.MeleeUnits.CoinCost <= myVillage.Coins) && (myVillage.MeleeUnits.FoodCost <= myVillage.Food))
+            switch (Type)
             {
-                myVillage.Coins -= myVillage.MeleeUnits.CoinCost;
-                myVillage.Food -= myVillage.MeleeUnits.FoodCost;
-                myVillage.MeleeUnits.Count++;
-                return true;
-            }
-            else
-            {
-                return true;
-            }
+                case 1:
+                    if ((myVillage.MeleeUnits.CoinCost <= myVillage.Coins) && (myVillage.MeleeUnits.FoodCost <= myVillage.Food))
+                    {
+                        myVillage.Coins -= myVillage.MeleeUnits.CoinCost;
+                        myVillage.Food -= myVillage.MeleeUnits.FoodCost;
+                        myVillage.MeleeUnits.Count++;
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                case 2:
+                    if ((myVillage.RangeUnits.CoinCost <= myVillage.Coins) && (myVillage.RangeUnits.FoodCost <= myVillage.Food))
+                    {
+                        myVillage.Coins -= myVillage.RangeUnits.CoinCost;
+                        myVillage.Food -= myVillage.RangeUnits.FoodCost;
+                        myVillage.RangeUnits.Count++;
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                default:
+                    return false;
+            }            
         }
         public override String CreateTextFuncA(Village myVillage)
         {
@@ -39,6 +57,15 @@ namespace VillageDefence.Models.Structures
                     if (Level > 0)
                     {
                         return "Train Melee";
+                    }
+                    else
+                    {
+                        return " ";
+                    }
+                case 2:
+                    if (Level > 0)
+                    {
+                        return "Train Range";
                     }
                     else
                     {
@@ -62,7 +89,14 @@ namespace VillageDefence.Models.Structures
                         return " ";
                     }                    
                 case 2:
-                    return "Range";
+                    if (Level > 0)
+                    {
+                        return "Range";
+                    }
+                    else
+                    {
+                        return " ";
+                    }
                 default:
                     return " ";
             }
@@ -80,6 +114,15 @@ namespace VillageDefence.Models.Structures
                     {
                         return " ";
                     }
+                case 2:
+                    if (Level > 0)
+                    {
+                        return "Coins: " + myVillage.RangeUnits.CoinCost.ToString();
+                    }
+                    else
+                    {
+                        return " ";
+                    }
                 default:
                     return " ";
             }
@@ -89,14 +132,23 @@ namespace VillageDefence.Models.Structures
             switch (Type)
             {
                 case 1:
-                    if (Level > 1)
+                    if (Level > 0)
                     {
                         return "Food: " + myVillage.MeleeUnits.FoodCost.ToString();
                     }
                     else
                     {
                         return " ";
-                    }                    
+                    }
+                case 2:
+                    if (Level > 0)
+                    {
+                        return "Food: " + myVillage.RangeUnits.FoodCost.ToString();
+                    }
+                    else
+                    {
+                        return " ";
+                    }
                 default:
                     return " ";
             }
@@ -110,7 +162,9 @@ namespace VillageDefence.Models.Structures
             {
                 case 1:
                     // Tower
-                    return SetRawBarracks(RawLevel);                
+                    return SetRawBarracks(RawLevel); 
+                case 2:
+                    return SetRawArchery(RawLevel);
                 default:
                     Name = "None";
                     return false;
@@ -126,6 +180,22 @@ namespace VillageDefence.Models.Structures
                     return true;
                 case 1:
                     Name = "Barracks";
+                    UpgradeCost = 999;
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        private bool SetRawArchery(int RawLevel)
+        {
+            switch (RawLevel)
+            {
+                case 0:
+                    Name = "Dirt";
+                    UpgradeCost = 40;
+                    return true;
+                case 1:
+                    Name = "ArcherRange";
                     UpgradeCost = 999;
                     return true;
                 default:

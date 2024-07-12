@@ -26,7 +26,7 @@ namespace VillageDefence.Views
             myParent.ShowHome(true);
             myParent.LoadMainView();
         }
-        public void ButtonClicked(object source, RoutedEventArgs args)
+        public void UnitButtonClicked(object source, RoutedEventArgs args)
         {
             if (source.Equals(AttackMeleeButton))
             {

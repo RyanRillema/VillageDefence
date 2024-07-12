@@ -23,6 +23,7 @@ namespace VillageDefence.Models
         public ResourceStructure FarmA = new ResourceStructure(2);
         public ResourceStructure FarmB = new ResourceStructure(2);
         public ConstructionStructure Barracks = new ConstructionStructure(1);
+        public ConstructionStructure Archery = new ConstructionStructure(2);
 
         public MeleeUnit MeleeUnits = new MeleeUnit();
         public RangeUnit RangeUnits = new RangeUnit();
@@ -66,6 +67,7 @@ namespace VillageDefence.Models
             GateA.Upgrade();
             GateB.Upgrade();
             Barracks.Upgrade();
+            Archery.Upgrade();
             CoinsA.Upgrade();
             CoinsB.Upgrade();
             FarmA.Upgrade();

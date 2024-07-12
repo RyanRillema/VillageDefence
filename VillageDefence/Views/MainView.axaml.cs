@@ -63,7 +63,7 @@ public partial class MainView : UserControl
         }
         if (source.Equals(BuildB3))
         {
-
+            myBuildingView = new BuildingView(myGame.myVillage, myGame.myVillage.Archery);
         }
         if (source.Equals(BuildB4))
         {
@@ -150,6 +150,8 @@ public partial class MainView : UserControl
 
         RefreshBase = myGame.myVillage.Barracks;
         BuildB2.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level;
+        RefreshBase = myGame.myVillage.Archery;
+        BuildB3.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level;
 
         RefreshBase = myGame.myVillage.CoinsA;
         BuildC1.Content = RefreshBase.Name + "\nLevel: " + RefreshBase.Level

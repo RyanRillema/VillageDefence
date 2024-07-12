@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VillageDefence.Models.Structures;
 using VillageDefence.Models.Units;
 using VillageDefence.Views;
 
@@ -17,7 +18,9 @@ namespace VillageDefence.Models
         public RangeUnit AttackRange = new RangeUnit();
         public MeleeUnit MyMelee;
         public RangeUnit MyRange;
-        public int Turn = 0; //1-MyRange, 2-AttRange, 3-MyMelee, 4-AttMelee
+        public DefenseStructure MyTowerA;
+        public DefenseStructure MyTowerB;
+        public int Turn = 0; // 1- MyTowerA, 2-MyTowerB, 3-MyRange, 4-AttRange, 5-MyMelee, 6-AttMelee
         public Unit AttackUnit, DefendUnit;
         public int DamageTotal = 0;
         public String OutputA, OutputB, OutputC, OutputD, OutputE, OutputF;
@@ -39,7 +42,7 @@ namespace VillageDefence.Models
                 return true;
             }
 
-            if (++Turn == 5)
+            if (++Turn == 7)
             {
                 // Reset turns
                 Turn = 1;
@@ -51,21 +54,31 @@ namespace VillageDefence.Models
                 AddOutput(AttackUnit.Name + " turn");
                 if (Turn == 1)
                 {
-                    ParentBattleView.MyRangeButton.BorderThickness = Avalonia.Thickness.Parse("3");
+                    ParentBattleView.MyTowerAButton.BorderThickness = Avalonia.Thickness.Parse("3");
                     return true;
                 }
                 if (Turn == 2)
+                {
+                    ParentBattleView.MyTowerBButton.BorderThickness = Avalonia.Thickness.Parse("3");
+                    return true;
+                }
+                if (Turn == 3)
+                {
+                    ParentBattleView.MyRangeButton.BorderThickness = Avalonia.Thickness.Parse("3");
+                    return true;
+                }
+                if (Turn == 4)
                 {
                     AttackerAttack();
                     Attack();
                     return false;
                 }
-                if (Turn == 3)
+                if (Turn == 5)
                 {
                     ParentBattleView.MyMeleeButton.BorderThickness = Avalonia.Thickness.Parse("3");
                     return true;
                 }
-                if (Turn == 4)
+                if (Turn == 6)
                 {
                     AttackerAttack();
                     Attack();
@@ -87,6 +100,7 @@ namespace VillageDefence.Models
             myVillage = SetVillage;
             MyMelee = myVillage.MeleeUnits;
             MyRange = myVillage.RangeUnits;
+            MyTowerA = myVillage.TowerA;
             SetupAttack(Turn);
         }
         public void AttackerAttack()
@@ -122,48 +136,40 @@ namespace VillageDefence.Models
         {
             switch (Turn)
             {
-                case 1:
-                    if (MyRange.Count > 0)
-                    {
-                        AttackUnit = MyRange;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                case 2:
-                    if (AttackRange.Count > 0)
-                    {
-                        AttackUnit = AttackRange;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
                 case 3:
-                    if (MyMelee.Count > 0)
-                    {
-                        AttackUnit = MyMelee;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return CheckArmy(MyRange);
                 case 4:
-                    if (AttackMelee.Count > 0)
-                    {
-                        AttackUnit = AttackMelee;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return CheckArmy(AttackRange);
+                case 5:
+                    return CheckArmy(MyMelee);
+                case 6:
+                    return CheckArmy(AttackMelee);
                 default:
                     return false;
+            }
+        }
+        private bool CheckArmy(Unit CheckArmy)
+        {
+            if (CheckArmy.Count > 0)
+            {
+                AttackUnit = CheckArmy;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool CheckBuilding(BaseStructure CheckStructure)
+        {
+            if ((CheckStructure.Level > 0) && (CheckStructure.Health.CurrentHealth > 0))
+            {
+
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
         public bool CheckEnd()
