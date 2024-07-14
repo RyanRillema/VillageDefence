@@ -34,7 +34,7 @@
         <Grid Classes="g1"
         ColumnDefinitions="100,100"
         RowDefinitions="25,25,25,25,25,25,25,25"
-        Grid.Row="1" Grid.Column="0">
+        Grid.Row="0" Grid.Column="0">
           <Label Name="LabelA" Classes="stats"
                 Grid.Row="0" Grid.Column="0">
             Damage:
@@ -88,7 +88,7 @@
         <Grid Classes="g1"
         ColumnDefinitions="100,100"
         RowDefinitions="50,50,50,50"
-        Grid.Row="1" Grid.Column="1">
+        Grid.Row="0" Grid.Column="1">
           <Button Name="FuncAButton" Classes="Control"
               Click="FuncAButtonClicked"
               Grid.Row="0" Grid.Column="0">
@@ -96,12 +96,32 @@
           </Button>
           <Button Name="FuncBButton" Classes="Control"
               Click="FuncBButtonClicked"
-              Grid.Row="1" Grid.Column="0">
+              Grid.Row="0" Grid.Column="1">
             Function B
+          </Button>
+          <Button Name="FuncCButton" Classes="Control"
+              Click="FuncCButtonClicked"
+              Grid.Row="1" Grid.Column="0">
+            Function C
+          </Button>
+          <Button Name="FuncDButton" Classes="Control"
+              Click="FuncDButtonClicked"
+              Grid.Row="1" Grid.Column="1">
+            Function D
+          </Button>
+          <Button Name="FuncEButton" Classes="Control"
+              Click="FuncEButtonClicked"
+              Grid.Row="2" Grid.Column="0">
+            Function E
+          </Button>
+          <Button Name="FuncFButton" Classes="Control"
+              Click="FuncFButtonClicked"
+              Grid.Row="2" Grid.Column="1">
+            Function E
           </Button>
           <Button Name="UpgradeButton" Classes="Control"
               Click="UpgradeButtonClicked"
-              Grid.Row="2" Grid.Column="0">
+              Grid.Row="4" Grid.Column="0">
             Upgrade
           </Button>          
         </Grid>

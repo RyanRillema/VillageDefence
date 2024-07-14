@@ -13,12 +13,15 @@ namespace VillageDefence.Models.Structures
         // private Unit myUnit= new Unit();
         // Type: 1-Barracks, 2-Archery Range
         public int Type = NewType;
+        public int UpgradeArmourCost, UpgradeDamageCost;
+        public bool UpgradeArmour, UpgradeDamage;
         public override bool Upgrade()
         {
             return SetRawData(Type, Level + 1);
         }
         public override bool FuncA(Village myVillage)
         {
+            // Buy a unit
             switch (Type)
             {
                 case 1:
@@ -60,6 +63,139 @@ namespace VillageDefence.Models.Structures
                 default:
                     return " ";
             }
+        }
+        public override bool FuncB(Village myVillage)
+        {
+            // Buy a unit
+            switch (Type)
+            {
+                case 1:
+                    if ((myVillage.MeleeUnits.CoinCost * 10 <= myVillage.Coins) && (myVillage.MeleeUnits.FoodCost * 10 <= myVillage.Food))
+                    {
+                        myVillage.Coins -= myVillage.MeleeUnits.CoinCost * 10;
+                        myVillage.Food -= myVillage.MeleeUnits.FoodCost * 10;
+                        myVillage.MeleeUnits.Count += 10;
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                case 2:
+                    if ((myVillage.RangeUnits.CoinCost * 10 <= myVillage.Coins) && (myVillage.RangeUnits.FoodCost * 10 <= myVillage.Food))
+                    {
+                        myVillage.Coins -= myVillage.RangeUnits.CoinCost * 10;
+                        myVillage.Food -= myVillage.RangeUnits.FoodCost * 10;
+                        myVillage.RangeUnits.Count+=10;
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                default:
+                    return false;
+            }
+        }
+        public override String CreateTextFuncB(Village myVillage)
+        {
+            switch (Type)
+            {
+                case 1:
+                    return StringReturnCheckLevel("10 Melee");
+                case 2:
+                    return StringReturnCheckLevel("10 Range");
+                default:
+                    return " ";
+            }
+        }
+        public override bool FuncC(Village myVillage)
+        {
+            // Upgrade Armour
+            switch (Type)
+            {
+                case 1:
+                    if ((!UpgradeArmour) && (UpgradeArmourCost > 0))
+                    {
+                        myVillage.MeleeUnits.CombatStats.ArmourValue++;
+                        UpgradeArmour = true;
+                        myVillage.Coins -= UpgradeArmourCost;
+
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                case 2:
+                    if ((!UpgradeArmour) && (UpgradeArmourCost > 0))
+                    {
+                        myVillage.RangeUnits.CombatStats.ArmourValue++;
+                        UpgradeArmour = true;
+                        myVillage.Coins -= UpgradeArmourCost;
+
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                default:
+                    return false;
+            }
+        }
+        public override string CreateTextFuncC(Village myVillage)
+        {
+            String ReturnString = " ";
+            if ((!UpgradeArmour) && (UpgradeArmourCost > 0))
+            {
+                ReturnString = "+1 Armour";
+            }
+            return ReturnString;
+        }
+        public override bool FuncD(Village myVillage)
+        {
+            // Upgrade damage
+            switch (Type)
+            {
+                case 1:
+                    if ((!UpgradeDamage) && (UpgradeDamageCost > 0))
+                    {
+                        myVillage.MeleeUnits.CombatStats.DamageValue++;
+                        UpgradeDamage = true;
+                        myVillage.Coins -= UpgradeDamageCost;
+
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                case 2:
+                    if ((!UpgradeDamage) && (UpgradeDamageCost > 0))
+                    {
+                        myVillage.RangeUnits.CombatStats.DamageValue++;
+                        UpgradeDamage = true;
+                        myVillage.Coins -= UpgradeDamageCost;
+
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                default:
+                    return false;
+            }
+        }
+        public override string CreateTextFuncD(Village myVillage)
+        {
+            String ReturnString = " ";
+            if ((!UpgradeDamage) && (UpgradeDamageCost > 0))
+            {
+                ReturnString = "+1 Damage";
+            }
+            return ReturnString;
         }
         public override String CreateLabelA()
         {
@@ -155,8 +291,26 @@ namespace VillageDefence.Models.Structures
                     UpgradeCost = 20;
                     return true;
                 case 1:
-                    Name = "Barracks";
+                    Name = "Spear circle";
                     Count = 1;
+                    UpgradeCost = 30;
+                    return true;
+                case 2:
+                    Name = "Spear hut";
+                    Count = 1;
+                    UpgradeArmourCost = 20;
+                    UpgradeDamageCost = 20;
+                    UpgradeArmour = false;
+                    UpgradeDamage = false;
+                    UpgradeCost = 50;
+                    return true;
+                case 3:
+                    Name = "Spear hall";
+                    Count = 1;
+                    UpgradeArmourCost = 50;
+                    UpgradeDamageCost = 50;
+                    UpgradeArmour = false;
+                    UpgradeDamage = false;
                     UpgradeCost = 999;
                     return true;
                 default:
@@ -172,14 +326,31 @@ namespace VillageDefence.Models.Structures
                     UpgradeCost = 40;
                     return true;
                 case 1:
-                    Name = "ArcherRange";
+                    Name = "Bow stack";
                     Count = 1;
+                    UpgradeCost = 50;
+                    return true;
+                case 2:
+                    Name = "Bow target";
+                    Count = 1;
+                    UpgradeArmourCost = 30;
+                    UpgradeDamageCost = 30;
+                    UpgradeArmour = false;
+                    UpgradeDamage = false;
+                    UpgradeCost = 100;
+                    return true;
+                case 3:
+                    Name = "Bow range";
+                    Count = 1;
+                    UpgradeArmourCost = 70;
+                    UpgradeDamageCost = 70;
+                    UpgradeArmour = false;
+                    UpgradeDamage = false;
                     UpgradeCost = 999;
                     return true;
                 default:
                     return false;
             }
         }
-
     }
 }

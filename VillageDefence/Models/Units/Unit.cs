@@ -22,8 +22,8 @@ namespace VillageDefence.Models.Units
             {
                 if (Health.CurrentHealth + CombatStats.ArmourValue > Damage)
                 {
-                    Health.CurrentHealth -= Damage - CombatStats.ArmourValue;
-                    DamageDone += Damage - CombatStats.ArmourValue;
+                    Health.CurrentHealth -= Math.Max(Damage - CombatStats.ArmourValue,0); // Do not allow negative damage
+                    DamageDone += Math.Max(Damage - CombatStats.ArmourValue, 0);
                     Damage = 0;
                 }
                 else
@@ -35,6 +35,8 @@ namespace VillageDefence.Models.Units
                     Health.CurrentHealth = Health.TotalHealth;
                     Count--;
                 }
+
+                Debug.Assert(Health.CurrentHealth <= Health.TotalHealth, "Current health should't be greater than total health");
 
                 if (Count == 0)
                 {

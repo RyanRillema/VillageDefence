@@ -84,6 +84,7 @@ namespace VillageDefence.Models
                 }
                 else
                 {
+                    Debug.Assert(false, "End of turns");
                     return false;
                 }
             }
@@ -104,32 +105,31 @@ namespace VillageDefence.Models
         }
         public void AttackerAttack()
         {
-            Button DefendButton = new Button();
+            Button DefendButton = null;
             //Find a unit for the attacker to attack
-            if (MyMelee.Count > 0)
+            while (DefendButton == null)
             {
-                DefendUnit = MyMelee;
-                DefendButton = ParentBattleView.MyMeleeButton;
-            }
-            else if (MyRange.Count > 0)
-            {
-                DefendUnit = MyRange;
-                DefendButton = ParentBattleView.MyRangeButton;
-            }
-            else if (MyTowerA.Count > 0)
-            {
-                DefendUnit = MyTowerA;
-                DefendButton = ParentBattleView.MyTowerAButton;
-            }
-            else if (MyTowerB.Count > 0)
-            {
-                DefendUnit = MyTowerB;
-                DefendButton = ParentBattleView.MyTowerBButton;
-            }
-            else
-            {
-                Debug.Assert(true,"Cant find unit to attack");
-            }
+                if ((MyTowerA.Count > 0) && (SpinGenerator.SpinAttackerAttack(2)))
+                {
+                    DefendUnit = MyTowerA;
+                    DefendButton = ParentBattleView.MyTowerAButton;
+                }
+                else if ((MyTowerB.Count > 0) && (SpinGenerator.SpinAttackerAttack(2)))
+                {
+                    DefendUnit = MyTowerB;
+                    DefendButton = ParentBattleView.MyTowerBButton;
+                }
+                else if((MyMelee.Count > 0) && (SpinGenerator.SpinAttackerAttack(3)))
+                {
+                    DefendUnit = MyMelee;
+                    DefendButton = ParentBattleView.MyMeleeButton;
+                }
+                else if ((MyRange.Count > 0) && (SpinGenerator.SpinAttackerAttack(5)))
+                {
+                    DefendUnit = MyRange;
+                    DefendButton = ParentBattleView.MyRangeButton;
+                }
+            }            
 
             Attack(DefendButton);
         }

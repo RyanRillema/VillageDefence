@@ -137,7 +137,7 @@ namespace VillageDefence.Models.Structures
                     Name = "Rock pile";
                     UpgradeCost = 50;
                     Count = 1;
-                    Health.SetHealth(15);
+                    Health.SetHealth(25);
                     CombatStats.ArmourType = 1;
                     CombatStats.ArmourValue = 0;
                     CombatStats.DamageType = 2;
@@ -146,21 +146,21 @@ namespace VillageDefence.Models.Structures
                 case 2:
                     Name = "Spear pile";
                     UpgradeCost = 100;
-                    Health.SetHealth(30);
+                    Health.SetHealth(50);
                     CombatStats.ArmourValue = 3;
                     CombatStats.DamageValue = 20;
                     return true;
                 case 3:
                     Name = "Arrows";
                     UpgradeCost = 150;
-                    Health.SetHealth(45);
+                    Health.SetHealth(75);
                     CombatStats.ArmourValue = 8;
                     CombatStats.DamageValue = 30;
                     return true;
                 case 4:
                     Name = "Flaming arrows";
                     UpgradeCost = 999;
-                    Health.SetHealth(60);
+                    Health.SetHealth(100);
                     CombatStats.ArmourValue = 8;
                     CombatStats.DamageValue = 40;
                     return true;

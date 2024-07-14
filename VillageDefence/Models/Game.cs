@@ -17,7 +17,7 @@ namespace VillageDefence.Models
         {
             myVillage.NextTurn();
             Turn++;
-            if (SpinBattle())
+            if (SpinGenerator.SpinBattle())
             {
                 StartBattle = true;
             }else
@@ -37,19 +37,6 @@ namespace VillageDefence.Models
             myVillage = new Village();
             myVillage.NewGame();
             Turn = 0;
-        }
-        private bool SpinBattle()
-        {
-            //1 in 5 chance of battle
-            Random rnd = new Random();
-            int Value = rnd.Next(1, 5);
-            if (Value == 1)
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
         }
     }
 }

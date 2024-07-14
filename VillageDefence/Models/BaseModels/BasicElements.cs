@@ -15,10 +15,10 @@ namespace VillageDefence.Models.BaseModels
         public int ArmourType = 0; //Just 1 for now
     }
 
-    public class HealthBar(int NewHealth)
+    public class HealthBar()
     {
-        public int TotalHealth = NewHealth;
-        public int CurrentHealth = NewHealth;
+        public int TotalHealth;
+        public int CurrentHealth;
 
         public void SetHealth(int SetHealth)
         {

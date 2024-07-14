@@ -18,6 +18,7 @@ namespace VillageDefence.Views
         }
         public void Refresh()
         {
+            // Labels
             LabelName.Content = myBuilding.Name;
             LabelA.Content = myBuilding.CreateLabelA();
             LabelAValue.Content = myBuilding.CreateLabelAValue(myVillage);
@@ -30,11 +31,19 @@ namespace VillageDefence.Views
             LabelLevelValue.Content=myBuilding.Level;
             LabelUpgradeValue.Content = myBuilding.UpgradeCost;
 
+            // Buttons
             FuncAButton.Content = myBuilding.CreateTextFuncA(myVillage);
             FuncAButton.IsVisible = !(FuncAButton.Content.ToString() == " ");
-
             FuncBButton.Content = myBuilding.CreateTextFuncB(myVillage);
             FuncBButton.IsVisible = !(FuncBButton.Content.ToString() == " ");
+            FuncCButton.Content = myBuilding.CreateTextFuncC(myVillage);
+            FuncCButton.IsVisible = !(FuncCButton.Content.ToString() == " ");
+            FuncDButton.Content = myBuilding.CreateTextFuncD(myVillage);
+            FuncDButton.IsVisible = !(FuncDButton.Content.ToString() == " ");
+            FuncEButton.Content = myBuilding.CreateTextFuncE(myVillage);
+            FuncEButton.IsVisible = !(FuncEButton.Content.ToString() == " ");
+            FuncFButton.Content = myBuilding.CreateTextFuncF(myVillage);
+            FuncFButton.IsVisible = !(FuncFButton.Content.ToString() == " ");
 
         }
         public void UpgradeButtonClicked(object source, RoutedEventArgs args)
@@ -52,6 +61,34 @@ namespace VillageDefence.Views
         public void FuncBButtonClicked(object source, RoutedEventArgs args)
         {
             if (myBuilding.FuncB(myVillage))
+            {
+                Refresh();
+            }
+        }
+        public void FuncCButtonClicked(object source, RoutedEventArgs args)
+        {
+            if (myBuilding.FuncC(myVillage))
+            {
+                Refresh();
+            }
+        }
+        public void FuncDButtonClicked(object source, RoutedEventArgs args)
+        {
+            if (myBuilding.FuncD(myVillage))
+            {
+                Refresh();
+            }
+        }
+        public void FuncEButtonClicked(object source, RoutedEventArgs args)
+        {
+            if (myBuilding.FuncC(myVillage))
+            {
+                Refresh();
+            }
+        }
+        public void FuncFButtonClicked(object source, RoutedEventArgs args)
+        {
+            if (myBuilding.FuncD(myVillage))
             {
                 Refresh();
             }

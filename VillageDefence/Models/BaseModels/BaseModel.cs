@@ -12,7 +12,7 @@ namespace VillageDefence.Models.BaseModels
         public int Level = 0;
         public int Count = 0;
         public Combat CombatStats = new Combat();
-        public HealthBar Health = new HealthBar(5);
+        public HealthBar Health = new HealthBar();
 
         public void HealUnit(int iHealth = 1)
         {

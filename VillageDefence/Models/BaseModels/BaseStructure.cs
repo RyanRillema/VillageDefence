@@ -15,8 +15,16 @@ namespace VillageDefence.Models.BaseModels
         public abstract bool Upgrade();
         public abstract bool FuncA(Village myVillage);
         public abstract bool FuncB(Village myVillage);
+        public abstract bool FuncC(Village myVillage);
+        public abstract bool FuncD(Village myVillage);
+        public abstract bool FuncE(Village myVillage);
+        public abstract bool FuncF(Village myVillage);
         public abstract string CreateTextFuncA(Village myVillage);
         public abstract string CreateTextFuncB(Village myVillage);
+        public abstract string CreateTextFuncC(Village myVillage);
+        public abstract string CreateTextFuncD(Village myVillage);
+        public abstract string CreateTextFuncE(Village myVillage);
+        public abstract string CreateTextFuncF(Village myVillage);
         public abstract string CreateLabelA();
         public abstract string CreateLabelAValue(Village myVillage);
         public abstract string CreateLabelB();

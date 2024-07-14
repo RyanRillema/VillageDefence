@@ -15,6 +15,7 @@ namespace VillageDefence.Models.Units
             CoinCost = 5;
             FoodCost = 5;
             Level = 1;
+            Health.SetHealth(8);
             CombatStats.DamageType = 1;
             CombatStats.DamageValue = 3;
             CombatStats.ArmourType = 1;

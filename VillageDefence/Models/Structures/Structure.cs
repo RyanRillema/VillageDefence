@@ -22,6 +22,46 @@ namespace VillageDefence.Models.Structures
         {
             return false;
         }
+        public override bool FuncC(Village myVillage)
+        {
+            return false;
+        }
+        public override bool FuncD(Village myVillage)
+        {
+            return false;
+        }
+        public override bool FuncE(Village myVillage)
+        {
+            return false;
+        }
+        public override bool FuncF(Village myVillage)
+        {
+            return false;
+        }
+        public override string CreateTextFuncA(Village myVillage)
+        {
+            return " ";
+        }
+        public override string CreateTextFuncB(Village myVillage)
+        {
+            return " ";
+        }
+        public override string CreateTextFuncC(Village myVillage)
+        {
+            return " ";
+        }
+        public override string CreateTextFuncD(Village myVillage)
+        {
+            return " ";
+        }
+        public override string CreateTextFuncE(Village myVillage)
+        {
+            return " ";
+        }
+        public override string CreateTextFuncF(Village myVillage)
+        {
+            return " ";
+        }
         public override string CreateLabelA()
         {
             return " ";
@@ -51,14 +91,6 @@ namespace VillageDefence.Models.Structures
             return "";
         }
         public override string CreateLabelDValue()
-        {
-            return " ";
-        }
-        public override string CreateTextFuncA(Village myVillage)
-        {
-            return " ";
-        }
-        public override string CreateTextFuncB(Village myVillage)
         {
             return " ";
         }
