@@ -7,8 +7,8 @@
             Test
           </Label>
         </Border>
-    </Design.PreviewWith>
-
+    </Design.PreviewWith>   
+  
     <!-- Add Styles Here -->
     <Style Selector="Grid.g1">
     </Style>

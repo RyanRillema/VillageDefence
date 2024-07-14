@@ -1,7 +1,9 @@
+using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
+using System.Reflection.Emit;
 using VillageDefence.Models;
 using VillageDefence.Models.BaseModels;
 using VillageDefence.Models.Units;
@@ -18,6 +20,7 @@ namespace VillageDefence.Views
             myParent = SetParent;
             myBattle = new Battle(this);
             myBattle.SetupBattle(myParent.myGame.myVillage, myParent.myGame.Turn);
+            SetupBattle();
             Refresh();
             myBattle.NextTurn();
             myParent.ShowHome(false);
@@ -30,13 +33,16 @@ namespace VillageDefence.Views
         }
         public void ButtonClicked(object source, RoutedEventArgs args)
         {
+            Button DefendButton;
             if (source.Equals(AttackMeleeButton))
             {
                 myBattle.DefendUnit = myBattle.AttackMelee;
+                DefendButton = AttackMeleeButton;
             }
             else if (source.Equals(AttackRangeButton))
             {
                 myBattle.DefendUnit = myBattle.AttackRange;
+                DefendButton = AttackRangeButton;
             }
             else
             {
@@ -44,7 +50,7 @@ namespace VillageDefence.Views
                 Refresh();
                 return;
             }
-            myBattle.Attack();
+            myBattle.Attack(DefendButton);
             myBattle.NextTurn();
         }        
         public void Refresh()
@@ -72,6 +78,27 @@ namespace VillageDefence.Views
                 RefreshButton.IsEnabled = true;
             }
         }
+        private void SetupBattle()
+        {
+            SetupBattleButton(AttackMeleeButton, myBattle.AttackMelee);
+            SetupBattleButton(AttackRangeButton, myBattle.AttackRange);
+
+            SetupBattleButton(MyTowerAButton, myBattle.MyTowerA);
+            SetupBattleButton(MyTowerBButton, myBattle.MyTowerB);
+            SetupBattleButton(MyMeleeButton, myBattle.MyMelee);
+            SetupBattleButton(MyRangeButton, myBattle.MyRange);
+        }
+        private void SetupBattleButton(Button RefreshButton, BaseModel RefreshUnit)
+        {
+            if (RefreshUnit.Count < 1)
+            {
+                RefreshButton.IsVisible = false;
+            }
+            else
+            {
+                RefreshButton.IsVisible = true;
+            }
+        }
         public void ClearButtonHighlight()
         {
             MyMeleeButton.BorderThickness = Avalonia.Thickness.Parse("0");
@@ -79,6 +106,18 @@ namespace VillageDefence.Views
             MyTowerAButton.BorderThickness = Avalonia.Thickness.Parse("0");
             MyTowerBButton.BorderThickness = Avalonia.Thickness.Parse("0");
         }
+        public void AttackAnimation(Button AttackButton)
+        {
+            var animation = (Animation)this.Resources["AttackAnimation"];
 
+            animation.RunAsync(AttackButton);
+        }
+        public void KillAnimation(Button AttackButton)
+        {
+            var animation = (Animation)this.Resources["KillAnimation"];
+
+            animation.RunAsync(AttackButton);
+            AttackButton.Opacity = 0.4;
+        }
     }
 }

@@ -6,9 +6,38 @@
              x:Class="VillageDefence.Views.BattleView">
   
     <UserControl.Styles>
-      <StyleInclude Source="/VillageStyles.axaml" />
+      <StyleInclude Source="/VillageStyles.axaml" />      
     </UserControl.Styles>
+  <!--<UserControl.Resources>
+    <ResourceInclude Source="avares://VillageDefence/AnimationResources.axaml" />
+  </UserControl.Resources>-->
 
+  <UserControl.Resources>
+    <Animation x:Key="AttackAnimation"
+               x:SetterTargetType="Rectangle"
+               Duration="0:0:2">
+      <KeyFrame Cue="0%">
+        <Setter Property="Opacity" Value="1"/>
+      </KeyFrame>
+      <KeyFrame Cue="50%">
+        <Setter Property="Opacity" Value="0.4"/>
+      </KeyFrame>
+      <KeyFrame Cue="100%">
+        <Setter Property="Opacity" Value="1"/>
+      </KeyFrame>
+    </Animation>
+    <Animation x:Key="KillAnimation"
+               x:SetterTargetType="Rectangle"
+               Duration="0:0:1">
+      <KeyFrame Cue="0%">
+        <Setter Property="Opacity" Value="1"/>
+      </KeyFrame>
+      <KeyFrame Cue="100%">
+        <Setter Property="Opacity" Value="0.4"/>
+      </KeyFrame>
+    </Animation>
+  </UserControl.Resources>
+  
   <StackPanel>
     <Grid Classes="g1"
       ColumnDefinitions="400"

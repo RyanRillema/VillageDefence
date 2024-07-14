@@ -1,0 +1,17 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Add Resources Here -->
+  <Animation x:Key="AttackAnimation"
+               x:SetterTargetType="Rectangle"
+               Duration="0:0:2">
+      <KeyFrame Cue="0%">
+        <Setter Property="Opacity" Value="1"/>
+      </KeyFrame>
+      <KeyFrame Cue="50%">
+        <Setter Property="Opacity" Value="0.2"/>
+      </KeyFrame>
+      <KeyFrame Cue="100%">
+        <Setter Property="Opacity" Value="1"/>
+      </KeyFrame>
+    </Animation>
+</ResourceDictionary>

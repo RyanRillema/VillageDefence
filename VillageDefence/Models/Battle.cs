@@ -8,6 +8,8 @@ using VillageDefence.Models.BaseModels;
 using VillageDefence.Models.Structures;
 using VillageDefence.Models.Units;
 using VillageDefence.Views;
+using Avalonia.Animation;
+using Avalonia.Controls;
 
 namespace VillageDefence.Models
 {
@@ -68,7 +70,6 @@ namespace VillageDefence.Models
                 if (Turn == 4)
                 {
                     AttackerAttack();
-                    Attack();
                     return false;
                 }
                 if (Turn == 5)
@@ -79,7 +80,6 @@ namespace VillageDefence.Models
                 if (Turn == 6)
                 {
                     AttackerAttack();
-                    Attack();
                     return false;
                 }
                 else
@@ -104,39 +104,57 @@ namespace VillageDefence.Models
         }
         public void AttackerAttack()
         {
+            Button DefendButton = new Button();
             //Find a unit for the attacker to attack
             if (MyMelee.Count > 0)
             {
                 DefendUnit = MyMelee;
+                DefendButton = ParentBattleView.MyMeleeButton;
             }
             else if (MyRange.Count > 0)
             {
                 DefendUnit = MyRange;
+                DefendButton = ParentBattleView.MyRangeButton;
             }
             else if (MyTowerA.Count > 0)
             {
                 DefendUnit = MyTowerA;
+                DefendButton = ParentBattleView.MyTowerAButton;
             }
             else if (MyTowerB.Count > 0)
             {
                 DefendUnit = MyTowerB;
+                DefendButton = ParentBattleView.MyTowerBButton;
             }
             else
             {
                 Debug.Assert(true,"Cant find unit to attack");
             }
+
+            Attack(DefendButton);
         }
-        public void Attack()
+        public void Attack(Button DefendButton)
         {
             int DamageDone=0;
+            bool UnitKilled = false;
             DamageTotal = AttackUnit.Count * AttackUnit.CombatStats.DamageValue;
 
             if (DefendUnit.DoDamage(DamageTotal, ref DamageDone))
             {
-                AddOutput(DefendUnit.Name + " was killed");
+                UnitKilled = true;                
             }
 
             AddOutput(AttackUnit.Name + " hits " + DefendUnit.Name + " for " + DamageDone);
+
+            if (UnitKilled)
+            {
+                AddOutput(DefendUnit.Name + " was killed");
+                ParentBattleView.KillAnimation(DefendButton);
+            }
+            else
+            {
+                ParentBattleView.AttackAnimation(DefendButton);
+            }
 
             ParentBattleView.Refresh();
         }
@@ -199,32 +217,16 @@ namespace VillageDefence.Models
             OutputB = OutputA;
             OutputA = NewOutput;
         }
+        
         private void SetupAttack(int Turn)
         {
-            Random rnd = new Random();
-            int Max;
-            int Min;
-
-            AttackMelee.SetInitDetails();
-            AttackMelee.Name = "Slasher";
-            AttackRange.SetInitDetails();
-            AttackRange.Name = "Thrower";
-                        
-            Max = (Turn / 5);
-            Min = (Turn / 10)+1;
-            //Max must be greater or equal to min
-            Max = Math.Max(Max, Min);
-            AttackMelee.Count = rnd.Next(Min, Max);
-
-            Max = (Turn / 10);
-            Min = (Turn / 20);
-            Max = Math.Max(Max, Min);
-            AttackRange.Count = rnd.Next(Min, Max);
+            VillageDefence.SpinGenerator.SetupAttack(Turn, AttackMelee, AttackRange);
         }
         private void EndBattle()
         {
             //MyMelee.Health.CurrentHealth = MyMelee.Health.TotalHealth;
             //MyRange.Health.CurrentHealth = MyRange.Health.TotalHealth;
+            ParentBattleView.ClearButtonHighlight();
             ParentBattleView.Refresh();
         }
     }

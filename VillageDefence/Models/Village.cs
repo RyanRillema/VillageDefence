@@ -35,6 +35,7 @@ namespace VillageDefence.Models
         {
             Coins += CoinsPerTurn();
             Food += FoodPerTurn();
+            NextTurnHeal();
         }
         public void UpgradeBuilding(Structure Building)
         {
@@ -76,6 +77,15 @@ namespace VillageDefence.Models
             //Add some units
             MeleeUnits.Count = 4;
             RangeUnits.Count = 2;
+        }
+        private void NextTurnHeal()
+        {
+            TowerA.HealUnit(5);
+            TowerB.HealUnit(5);
+            GateA.HealUnit(5);
+            GateA.HealUnit(5);
+            MeleeUnits.HealUnit();
+            RangeUnits.HealUnit();
         }
     }
 }

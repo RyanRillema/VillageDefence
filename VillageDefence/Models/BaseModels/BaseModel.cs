@@ -13,6 +13,18 @@ namespace VillageDefence.Models.BaseModels
         public int Count = 0;
         public Combat CombatStats = new Combat();
         public HealthBar Health = new HealthBar(5);
+
+        public void HealUnit(int iHealth = 1)
+        {
+            if (Health.CurrentHealth + iHealth < Health.TotalHealth)
+            {
+                Health.CurrentHealth = Health.CurrentHealth + iHealth;
+            }
+            else
+            {
+                Health.CurrentHealth = Health.TotalHealth;
+            }
+        }
         public String StringReturnCheckLevel(String StringReturn)
         {
             if (Level < 1)
