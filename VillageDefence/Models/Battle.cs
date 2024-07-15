@@ -205,7 +205,7 @@ namespace VillageDefence.Models
                 AddOutput("You lose");
                 return true;
             }
-            
+
             return false;
         }
         public void AddOutput(String NewOutput)
@@ -220,12 +220,10 @@ namespace VillageDefence.Models
         
         private void SetupAttack(int Turn)
         {
-            VillageDefence.SpinGenerator.SetupAttack(Turn, AttackMelee, AttackRange);
+            VillageDefence.SpinGenerator.SetupAttack(Turn,ref AttackMelee,ref AttackRange);
         }
         private void EndBattle()
         {
-            //MyMelee.Health.CurrentHealth = MyMelee.Health.TotalHealth;
-            //MyRange.Health.CurrentHealth = MyRange.Health.TotalHealth;
             ParentBattleView.ClearButtonHighlight();
             ParentBattleView.Refresh();
         }

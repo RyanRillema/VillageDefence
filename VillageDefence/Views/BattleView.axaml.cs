@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
+using System.Diagnostics;
 using System.Reflection.Emit;
 using VillageDefence.Models;
 using VillageDefence.Models.BaseModels;
@@ -94,7 +95,7 @@ namespace VillageDefence.Views
             {
                 RefreshButton.IsVisible = false;
             }
-            else
+            else 
             {
                 RefreshButton.IsVisible = true;
             }

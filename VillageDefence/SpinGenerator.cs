@@ -36,7 +36,7 @@ namespace VillageDefence
                 return false;
             }
         }
-        public static void SetupAttack(int Turn, BaseModel AttackMelee, BaseModel AttackRange)
+        public static void SetupAttack(int Turn,ref BaseModel AttackMelee,ref BaseModel AttackRange)
         {
             Random rnd = new Random();
             int Max;

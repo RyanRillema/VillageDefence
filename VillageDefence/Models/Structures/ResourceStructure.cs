@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Animation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -83,6 +84,12 @@ namespace VillageDefence.Models.Structures
         }
         private bool SetRawDataCoins(int RawLevel)
         {
+            int ValueIncrease = (int)(UpgradeCost * 0.067);
+            int UpgradeCostIncrease = (int)(UpgradeCost * 0.67);
+
+            ResourceInc += ValueIncrease;
+            UpgradeCost += UpgradeCostIncrease;
+
             switch (RawLevel)
             {
                 case 0:
@@ -96,33 +103,37 @@ namespace VillageDefence.Models.Structures
                     return true;
                 case 2:
                     Name = "Bronze scratch";
-                    UpgradeCost = 70;
-                    ResourceInc = 3;
+                    UpgradeCost = 60;
+                    // ResourceInc = 3;                    
                     return true;
                 case 3:
                     Name = "Bronze rock";
                     UpgradeCost = 100;
-                    ResourceInc = 7;
+                    // ResourceInc = 7;
                     return true;
                 case 4:
                     Name = "Bronze mine";
-                    UpgradeCost = 150;
-                    ResourceInc = 10;
+                    //UpgradeCost = 150;
+                    // ResourceInc = 10;
                     return true;
                 case 5:
                     Name = "Silver scratch";
-                    UpgradeCost = 200;
-                    ResourceInc = 15;
+                    //UpgradeCost = 200;
+                    // ResourceInc = 15;
                     return true;
                 case 6:
                     Name = "Silver rock";
-                    UpgradeCost = 250;
-                    ResourceInc = 20;
+                    //UpgradeCost = 250;
+                    // ResourceInc = 20;
                     return true;
                 case 7:
                     Name = "Silver Mine";
+                    //UpgradeCost = 300;
+                    // ResourceInc = 25;
+                    return true;
+                case 8:
+                    Name = "Gold Scratch";
                     UpgradeCost = 999;
-                    ResourceInc = 25;
                     return true;
                 default:
                     return false;
