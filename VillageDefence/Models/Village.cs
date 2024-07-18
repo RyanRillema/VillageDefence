@@ -24,9 +24,11 @@ namespace VillageDefence.Models
         public ResourceStructure FarmB = new ResourceStructure(2);
         public ConstructionStructure Barracks = new ConstructionStructure(1);
         public ConstructionStructure Archery = new ConstructionStructure(2);
+        public ConstructionStructure Forge = new ConstructionStructure(3);
 
         public MeleeUnit MeleeUnits = new MeleeUnit();
         public RangeUnit RangeUnits = new RangeUnit();
+        public TankUnit TankUnits = new TankUnit();
 
         private int CoinsInc = 2;
         private int FoodInc = 1;
@@ -61,6 +63,7 @@ namespace VillageDefence.Models
         {
             MeleeUnits.SetInitDetails();
             RangeUnits.SetInitDetails();
+            TankUnits.SetInitDetails();
 
             //Upgrade to set intial values
             TowerA.SetInitDetails();
@@ -69,6 +72,7 @@ namespace VillageDefence.Models
             GateB.SetInitDetails();
             Barracks.SetInitDetails();
             Archery.SetInitDetails();
+            Forge.SetInitDetails();
             CoinsA.SetInitDetails();
             CoinsB.SetInitDetails();
             FarmA.SetInitDetails();

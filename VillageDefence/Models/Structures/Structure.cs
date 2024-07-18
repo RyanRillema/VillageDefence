@@ -98,7 +98,7 @@ namespace VillageDefence.Models.Structures
         {
             return " ";
         }
-        public override bool DoDamage(int Damage, ref int DamageDone, ref int DamageBlocked, DefenseStructure GateA, DefenseStructure GateB)
+        public override bool DoDamage(int Damage, ref int DamageDone, ref int DamageBlocked, int TotalArmour)
         {
             Debug.Assert(false, "Should not call base structure Do Damage");
             return false;

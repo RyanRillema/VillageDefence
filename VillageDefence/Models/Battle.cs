@@ -17,10 +17,12 @@ namespace VillageDefence.Models
     {
         public BattleView ParentBattleView = SetParentBattleView;
         public Village myVillage;
-        public BaseModel AttackMelee = new MeleeUnit();
-        public BaseModel AttackRange = new RangeUnit();
-        public BaseModel MyMelee, MyRange, MyTowerA, MyTowerB, MyWallA, MyWallB;
-        public int Turn = 0; // 1- MyTowerA, 2-MyTowerB, 3-MyRange, 4-AttRange, 5-MyMelee, 6-AttMelee
+        public BaseModel AttackMeleeA = new MeleeUnit();
+        //public BaseModel AttackMeleeB = new MeleeUnit();
+        public BaseModel AttackRangeA = new RangeUnit();
+        //public BaseModel AttackRangeB = new RangeUnit();
+        public BaseModel MyMelee, MyRange, MyTank, MyTowerA, MyTowerB, MyGateA, MyGateB;
+        public int Turn = 0; // 1- MyTowerA, 2-MyTowerB, 3-MyRange, 4-AttRange, 5-MyMelee, 6-AttMelee, 7-MyTank
         public BaseModel AttackUnit, DefendUnit;
         public int DamageTotal = 0;
         public String OutputA, OutputB, OutputC, OutputD, OutputE, OutputF;
@@ -42,7 +44,7 @@ namespace VillageDefence.Models
                 return true;
             }
 
-            if (++Turn == 7)
+            if (++Turn == 8)
             {
                 // Reset turns
                 Turn = 1;
@@ -82,6 +84,11 @@ namespace VillageDefence.Models
                     AttackerAttack();
                     return false;
                 }
+                if (Turn == 7)
+                {
+                    ParentBattleView.MyTankButton.BorderThickness = Avalonia.Thickness.Parse("3");
+                    return true;
+                }
                 else
                 {
                     Debug.Assert(false, "End of turns");
@@ -99,8 +106,11 @@ namespace VillageDefence.Models
             myVillage = SetVillage;
             MyMelee = myVillage.MeleeUnits;
             MyRange = myVillage.RangeUnits;
+            MyTank = myVillage.TankUnits;
             MyTowerA = myVillage.TowerA;
             MyTowerB = myVillage.TowerB;
+            MyGateA = myVillage.GateA;
+            MyGateB = myVillage.GateB;
             SetupAttack(Turn);
         }
         public void AttackerAttack()
@@ -109,37 +119,52 @@ namespace VillageDefence.Models
             //Find a unit for the attacker to attack
             while (DefendButton == null)
             {
-                if ((MyTowerA.Count > 0) && (SpinGenerator.SpinAttackerAttack(2)))
+                if ((MyTank.Count > 0) && (SpinGenerator.SpinAttackerAttack(2)))
+                {
+                    DefendUnit = MyTank;
+                    DefendButton = ParentBattleView.MyTankButton;
+                }
+                else if ((MyTowerA.Count > 0) && (SpinGenerator.SpinAttackerAttack(3)))
                 {
                     DefendUnit = MyTowerA;
                     DefendButton = ParentBattleView.MyTowerAButton;
                 }
-                else if ((MyTowerB.Count > 0) && (SpinGenerator.SpinAttackerAttack(2)))
+                else if ((MyTowerB.Count > 0) && (SpinGenerator.SpinAttackerAttack(3)))
                 {
                     DefendUnit = MyTowerB;
                     DefendButton = ParentBattleView.MyTowerBButton;
                 }
-                else if((MyMelee.Count > 0) && (SpinGenerator.SpinAttackerAttack(3)))
+                else if((MyMelee.Count > 0) && (SpinGenerator.SpinAttackerAttack(5)))
                 {
                     DefendUnit = MyMelee;
                     DefendButton = ParentBattleView.MyMeleeButton;
                 }
-                else if ((MyRange.Count > 0) && (SpinGenerator.SpinAttackerAttack(5)))
+                else if ((MyRange.Count > 0) && (SpinGenerator.SpinAttackerAttack(7)))
                 {
                     DefendUnit = MyRange;
                     DefendButton = ParentBattleView.MyRangeButton;
                 }
             }            
 
-            Attack(DefendButton);
+            Attack(DefendButton, true);
         }
-        public void Attack(Button DefendButton)
+        public void Attack(Button DefendButton, bool AttackerAttack)
         {
             int DamageDone=0, DamageBlocked=0;
             bool UnitKilled = false;
+            int TotalArmour = 0;
+
+            if (AttackerAttack)
+            {
+                TotalArmour = DefendUnit.CombatStats.ArmourValue;
+            } else
+            {
+                TotalArmour = DefendUnit.CombatStats.ArmourValue + MyGateA.CombatStats.ArmourValue + MyGateB.CombatStats.ArmourValue;
+            }
+
             DamageTotal = AttackUnit.Count * AttackUnit.CombatStats.DamageValue;
 
-            if (DefendUnit.DoDamage(DamageTotal, ref DamageDone, ref DamageBlocked, myVillage.GateA, myVillage.GateB))
+            if (DefendUnit.DoDamage(DamageTotal, ref DamageDone, ref DamageBlocked, TotalArmour))
             {
                 UnitKilled = true;                
             }
@@ -156,7 +181,7 @@ namespace VillageDefence.Models
                 ParentBattleView.AttackAnimation(DefendButton);
             }
 
-            ParentBattleView.Refresh();
+            //ParentBattleView.Refresh();
         }
         public bool CheckArmy()
         {
@@ -169,11 +194,13 @@ namespace VillageDefence.Models
                 case 3:
                     return CheckArmy(MyRange);
                 case 4:
-                    return CheckArmy(AttackRange);
+                    return CheckArmy(AttackRangeA);
                 case 5:
                     return CheckArmy(MyMelee);
                 case 6:
-                    return CheckArmy(AttackMelee);
+                    return CheckArmy(AttackMeleeA);
+                case 7:
+                    return CheckArmy(MyTank);
                 default:
                     return false;
             }
@@ -192,15 +219,14 @@ namespace VillageDefence.Models
         }
         public bool CheckEnd()
         {
-            if ((AttackMelee.Count < 1) && (AttackRange.Count < 1))
+            if ((AttackMeleeA.Count < 1) && (AttackRangeA.Count < 1))
             {
                 AddOutput("You win");
                 ParentBattleView.myParent.ShowHome(true);
                 return true;
             }
 
-            if ((MyMelee.Count < 1) && (MyRange.Count < 1) && (MyTowerA.Count < 1) && (MyTowerB.Count < 1))
-            //&& (MyWallA.Count < 1) && (MyWallB.Count < 1)
+            if ((MyMelee.Count < 1) && (MyRange.Count < 1) && (MyTank.Count < 1) && (MyTowerA.Count < 1) && (MyTowerB.Count < 1) && (MyGateA.Count < 1) && (MyGateB.Count < 1))
             {
                 AddOutput("You lose");
                 return true;
@@ -217,10 +243,9 @@ namespace VillageDefence.Models
             OutputB = OutputA;
             OutputA = NewOutput;
         }
-        
         private void SetupAttack(int Turn)
         {
-            VillageDefence.SpinGenerator.SetupAttack(Turn,ref AttackMelee,ref AttackRange);
+            VillageDefence.SpinGenerator.SetupAttack(Turn,ref AttackMeleeA,ref AttackRangeA);
         }
         private void EndBattle()
         {

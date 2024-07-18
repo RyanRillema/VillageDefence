@@ -202,6 +202,10 @@
                 Grid.Row="1" Grid.Column="0">
                   Range: 0
                 </Label>
+                <Label Name="TankLabel" Classes="stats"
+                Grid.Row="2" Grid.Column="0">
+                  Tanks: 0
+                </Label>
               </Grid>
             </Grid>
           </Grid>

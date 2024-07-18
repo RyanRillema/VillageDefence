@@ -11,10 +11,9 @@ namespace VillageDefence.Models.Units
 {
     public abstract class Unit : BaseUnit
     {
-        public override bool DoDamage(int Damage, ref int DamageDone, ref int DamageBlocked, DefenseStructure GateA, DefenseStructure GateB)
+        public override bool DoDamage(int Damage, ref int DamageDone, ref int DamageBlocked, int TotalArmour)
         {
             // Return TRUE if unit count reaches 0
-            int TotalArmour = CombatStats.ArmourValue + GateA.CombatStats.ArmourValue + GateB.CombatStats.ArmourValue;
             Debug.Assert(Count > 0, "Cannot call damage on unit with 0 count");
 
             DamageDone = 0;

@@ -38,7 +38,7 @@ namespace VillageDefence.Models
             myVillage.NewGame();
             Turn = 0;
             myVillage.Coins = 2;
-            //myVillage.Coins = 2000;
+            myVillage.Coins = 2000;
         }
     }
 }

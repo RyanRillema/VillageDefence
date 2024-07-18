@@ -11,7 +11,7 @@ namespace VillageDefence.Models.Structures
     public class ConstructionStructure(int NewType) : Structure
     {
         // private Unit myUnit= new Unit();
-        // Type: 1-Barracks, 2-Archery Range
+        // Type: 1-Barracks, 2-Archery Range, 3-Forge
         public int Type = NewType;
         public int UpgradeArmourCost, UpgradeDamageCost;
         public bool UpgradeArmour, UpgradeDamage;
@@ -56,6 +56,18 @@ namespace VillageDefence.Models.Structures
                     {
                         return true;
                     }
+                case 3:
+                    if ((myVillage.TankUnits.CoinCost <= myVillage.Coins) && (myVillage.TankUnits.FoodCost <= myVillage.Food))
+                    {
+                        myVillage.Coins -= myVillage.TankUnits.CoinCost;
+                        myVillage.Food -= myVillage.TankUnits.FoodCost;
+                        myVillage.TankUnits.Count++;
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 default:
                     return false;
             }            
@@ -68,6 +80,8 @@ namespace VillageDefence.Models.Structures
                     return StringReturnCheckLevel("Train Melee");
                 case 2:
                     return StringReturnCheckLevel("Train Range");
+                case 3:
+                    return StringReturnCheckLevel("Train Tank");
                 default:
                     return " ";
             }
@@ -101,6 +115,18 @@ namespace VillageDefence.Models.Structures
                     {
                         return true;
                     }
+                case 3:
+                    if ((myVillage.TankUnits.CoinCost * 10 <= myVillage.Coins) && (myVillage.TankUnits.FoodCost * 10 <= myVillage.Food))
+                    {
+                        myVillage.Coins -= myVillage.TankUnits.CoinCost * 10;
+                        myVillage.Food -= myVillage.TankUnits.FoodCost * 10;
+                        myVillage.TankUnits.Count += 10;
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 default:
                     return false;
             }
@@ -113,6 +139,8 @@ namespace VillageDefence.Models.Structures
                     return StringReturnCheckLevel("10 Melee");
                 case 2:
                     return StringReturnCheckLevel("10 Range");
+                case 3:
+                    return StringReturnCheckLevel("10 Tank");
                 default:
                     return " ";
             }
@@ -139,6 +167,19 @@ namespace VillageDefence.Models.Structures
                     if ((!UpgradeArmour) && (UpgradeArmourCost > 0))
                     {
                         myVillage.RangeUnits.CombatStats.ArmourValue++;
+                        UpgradeArmour = true;
+                        myVillage.Coins -= UpgradeArmourCost;
+
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                case 3:
+                    if ((!UpgradeArmour) && (UpgradeArmourCost > 0))
+                    {
+                        myVillage.TankUnits.CombatStats.ArmourValue++;
                         UpgradeArmour = true;
                         myVillage.Coins -= UpgradeArmourCost;
 
@@ -192,6 +233,19 @@ namespace VillageDefence.Models.Structures
                     {
                         return true;
                     }
+                case 3:
+                    if ((!UpgradeDamage) && (UpgradeDamageCost > 0))
+                    {
+                        myVillage.TankUnits.CombatStats.DamageValue++;
+                        UpgradeDamage = true;
+                        myVillage.Coins -= UpgradeDamageCost;
+
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 default:
                     return false;
             }
@@ -227,6 +281,15 @@ namespace VillageDefence.Models.Structures
                     {
                         return " ";
                     }
+                case 3:
+                    if (Level > 0)
+                    {
+                        return StringReturnCheckLevel("Tank");
+                    }
+                    else
+                    {
+                        return " ";
+                    }
                 default:
                     return " ";
             }
@@ -239,6 +302,8 @@ namespace VillageDefence.Models.Structures
                     return StringReturnCheckLevel("Coins: " + myVillage.MeleeUnits.CoinCost.ToString());
                 case 2:
                     return StringReturnCheckLevel("Coins: " + myVillage.RangeUnits.CoinCost.ToString());
+                case 3:
+                    return StringReturnCheckLevel("Coins: " + myVillage.TankUnits.CoinCost.ToString());
                 default:
                     return " ";
             }
@@ -251,6 +316,8 @@ namespace VillageDefence.Models.Structures
                     return StringReturnCheckLevel("Food: " + myVillage.MeleeUnits.FoodCost.ToString());
                 case 2:
                     return StringReturnCheckLevel("Food: " + myVillage.RangeUnits.FoodCost.ToString());
+                case 3:
+                    return StringReturnCheckLevel("Food: " + myVillage.TankUnits.FoodCost.ToString());
                 default:
                     return " ";
             }
@@ -269,17 +336,6 @@ namespace VillageDefence.Models.Structures
 
             return ReturnString;
         }
-        public void HealUnit2(int iHealth = 1)
-        {
-            if (Health.CurrentHealth + iHealth < Health.TotalHealth)
-            {
-                Health.CurrentHealth = Health.CurrentHealth + iHealth;
-            }
-            else
-            {
-                Health.CurrentHealth = Health.TotalHealth;
-            }
-        }
         public override void SetInitDetails()
         {
             SetRawData(Type, Level);
@@ -296,6 +352,8 @@ namespace VillageDefence.Models.Structures
                     return SetRawBarracks(RawLevel); 
                 case 2:
                     return SetRawArchery(RawLevel);
+                case 3:
+                    return SetRawForge(RawLevel);
                 default:
                     Name = "None";
                     return false;
@@ -367,6 +425,43 @@ namespace VillageDefence.Models.Structures
                     Count = 1;
                     UpgradeArmourCost = 70;
                     UpgradeDamageCost = 70;
+                    UpgradeArmour = false;
+                    UpgradeDamage = false;
+                    UpgradeCost = 999;
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        private bool SetRawForge(int RawLevel)
+        {
+            switch (RawLevel)
+            {
+                case 0:
+                    Name = "Build site";
+                    UpgradeCost = 40;
+                    UpgradeArmour = true;
+                    UpgradeDamage = true;
+                    return true;
+                case 1:
+                    Name = "Anvil";
+                    Count = 1;
+                    UpgradeCost = 50;
+                    return true;
+                case 2:
+                    Name = "Workbench";
+                    Count = 1;
+                    UpgradeArmourCost = 35;
+                    UpgradeDamageCost = 35;
+                    UpgradeCost = 60;
+                    UpgradeArmour = false;
+                    UpgradeDamage = false;
+                    return true;
+                case 3:
+                    Name = "Forge";
+                    Count = 1;
+                    UpgradeArmourCost = 80;
+                    UpgradeDamageCost = 80;
                     UpgradeArmour = false;
                     UpgradeDamage = false;
                     UpgradeCost = 999;

@@ -37,7 +37,7 @@ namespace VillageDefence.Models.BaseModels
                 return StringReturn;
             }
         }
-        public abstract bool DoDamage(int Damage, ref int DamageDone, ref int DamageBlocked, DefenseStructure GateA, DefenseStructure GateB);
+        public abstract bool DoDamage(int Damage, ref int DamageDone, ref int DamageBlocked, int TotalArmour);
         public abstract String GetButtonLabel();
         public abstract void SetInitDetails();
     }

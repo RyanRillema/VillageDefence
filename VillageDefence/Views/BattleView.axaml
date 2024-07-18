@@ -79,17 +79,29 @@
           Click="ButtonClicked"
           Grid.Row="0" Grid.Column="0">
         </Button>
+        <Button Name="MyGateAButton" Classes="Army"
+          Click="ButtonClicked"
+          Grid.Row="0" Grid.Column="1">
+        </Button>
+        <Button Name="MyGateBButton" Classes="Army"
+          Click="ButtonClicked"
+          Grid.Row="0" Grid.Column="2">
+        </Button>
         <Button Name="MyTowerBButton" Classes="Army"
           Click="ButtonClicked"
           Grid.Row="0" Grid.Column="4">
         </Button>
         <Button Name="MyRangeButton" Classes="Army"
           Click="ButtonClicked"
-          Grid.Row="1" Grid.Column="1">
+          Grid.Row="1" Grid.Column="0">
         </Button>
         <Button Name="MyMeleeButton" Classes="Army"
           Click="ButtonClicked"
-          Grid.Row="1" Grid.Column="2">          
+          Grid.Row="1" Grid.Column="1">          
+        </Button>
+        <Button Name="MyTankButton" Classes="Army"
+          Click="ButtonClicked"
+          Grid.Row="1" Grid.Column="2">
         </Button>
       </Grid>
     </Grid>

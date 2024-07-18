@@ -54,7 +54,7 @@ public partial class MainView : UserControl
         }
         if (source.Equals(BuildB1))
         {
-
+            myBuildingView = new BuildingView(myGame.myVillage, myGame.myVillage.Archery);
         }
         if (source.Equals(BuildB2))
         {
@@ -62,7 +62,7 @@ public partial class MainView : UserControl
         }
         if (source.Equals(BuildB3))
         {
-            myBuildingView = new BuildingView(myGame.myVillage, myGame.myVillage.Archery);
+            myBuildingView = new BuildingView(myGame.myVillage, myGame.myVillage.Forge);
         }
         if (source.Equals(BuildB4))
         {
@@ -120,8 +120,9 @@ public partial class MainView : UserControl
         CoinsPerTurnLabel.Content = "(+" + myGame.myVillage.CoinsPerTurn() + ")";
         FoodLabel.Content = "Food: " + myGame.myVillage.Food;
         FoodPerTurnLabel.Content = "(+" + myGame.myVillage.FoodPerTurn() + ")";
-        MeleeLabel.Content = "Army: " + myGame.myVillage.MeleeUnits.Count;
+        MeleeLabel.Content = "Melee: " + myGame.myVillage.MeleeUnits.Count;
         RangeLabel.Content = "Range: " + myGame.myVillage.RangeUnits.Count;
+        TankLabel.Content = "Tanks: " + myGame.myVillage.TankUnits.Count;
     }
     private void RefreshBuildings()
     {
@@ -139,9 +140,11 @@ public partial class MainView : UserControl
         RefreshBase = myGame.myVillage.TowerB;
         BuildA4.Content = RefreshBase.GetButtonLabel();
 
+        RefreshBase = myGame.myVillage.Archery;
+        BuildB1.Content = RefreshBase.GetButtonLabel();
         RefreshBase = myGame.myVillage.Barracks;
         BuildB2.Content = RefreshBase.GetButtonLabel();
-        RefreshBase = myGame.myVillage.Archery;
+        RefreshBase = myGame.myVillage.Forge;
         BuildB3.Content = RefreshBase.GetButtonLabel();
 
         RefreshBase = myGame.myVillage.CoinsA;
