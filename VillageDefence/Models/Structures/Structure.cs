@@ -14,6 +14,10 @@ namespace VillageDefence.Models.Structures
         {
             return false;
         }
+        public override bool CanUpgrade()
+        {
+            return false;
+        }
         public override bool FuncA(Village myVillage)
         {
             return false;
@@ -94,7 +98,7 @@ namespace VillageDefence.Models.Structures
         {
             return " ";
         }
-        public override bool DoDamage(int Damage, ref int DamageDone)
+        public override bool DoDamage(int Damage, ref int DamageDone, ref int DamageBlocked, DefenseStructure GateA, DefenseStructure GateB)
         {
             Debug.Assert(false, "Should not call base structure Do Damage");
             return false;

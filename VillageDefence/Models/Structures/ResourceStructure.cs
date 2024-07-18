@@ -19,6 +19,14 @@ namespace VillageDefence.Models.Structures
         {
             return SetRawData(Type, Level + 1);
         }
+        public override bool CanUpgrade()
+        {
+            if (UpgradeCost != 999)
+            {
+                return true;
+            }
+            return false;
+        }
         public override String CreateLabelA()
         {
             switch (Type)
@@ -159,19 +167,34 @@ namespace VillageDefence.Models.Structures
                     ResourceInc = 2;
                     return true;
                 case 3:
-                    Name = "Small crops";
+                    Name = "Small garden";
                     UpgradeCost = 100;
                     ResourceInc = 5;
                     return true;
                 case 4:
-                    Name = "Medium crops";
+                    Name = "Medium garden";
                     UpgradeCost = 150;
                     ResourceInc = 8;
                     return true;
                 case 5:
+                    Name = "Large garden";
+                    UpgradeCost = 200;
+                    ResourceInc = 12;
+                    return true;
+                case 6:
+                    Name = "Small crops";
+                    UpgradeCost = 250;
+                    ResourceInc = 16;
+                    return true;
+                case 7:
+                    Name = "Medium crops";
+                    UpgradeCost = 300;
+                    ResourceInc = 20;
+                    return true;
+                case 8:
                     Name = "Large crops";
                     UpgradeCost = 999;
-                    ResourceInc = 12;
+                    ResourceInc = 25;
                     return true;
                 default:
                     return false;

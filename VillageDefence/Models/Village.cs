@@ -81,7 +81,15 @@ namespace VillageDefence.Models
         private void NextTurnHeal()
         {
             TowerA.HealUnit(5);
+            if (TowerA.Level > 1)
+            {
+                TowerA.Count = 1;
+            }
             TowerB.HealUnit(5);
+            if (TowerB.Level > 1)
+            {
+                TowerB.Count = 1;
+            }
             GateA.HealUnit(5);
             GateA.HealUnit(5);
             MeleeUnits.HealUnit();

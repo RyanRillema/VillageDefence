@@ -44,7 +44,7 @@ namespace VillageDefence.Views
             FuncEButton.IsVisible = !(FuncEButton.Content.ToString() == " ");
             FuncFButton.Content = myBuilding.CreateTextFuncF(myVillage);
             FuncFButton.IsVisible = !(FuncFButton.Content.ToString() == " ");
-
+            UpgradeButton.IsVisible = myBuilding.CanUpgrade();
         }
         public void UpgradeButtonClicked(object source, RoutedEventArgs args)
         {

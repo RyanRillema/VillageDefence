@@ -135,16 +135,16 @@ namespace VillageDefence.Models
         }
         public void Attack(Button DefendButton)
         {
-            int DamageDone=0;
+            int DamageDone=0, DamageBlocked=0;
             bool UnitKilled = false;
             DamageTotal = AttackUnit.Count * AttackUnit.CombatStats.DamageValue;
 
-            if (DefendUnit.DoDamage(DamageTotal, ref DamageDone))
+            if (DefendUnit.DoDamage(DamageTotal, ref DamageDone, ref DamageBlocked, myVillage.GateA, myVillage.GateB))
             {
                 UnitKilled = true;                
             }
 
-            AddOutput(AttackUnit.Name + " hits " + DefendUnit.Name + " for " + DamageDone);
+            AddOutput(AttackUnit.Name + " hits " + DefendUnit.Name + " for " + DamageDone + " (" + DamageBlocked + " blocked)");
 
             if (UnitKilled)
             {

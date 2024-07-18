@@ -13,6 +13,7 @@ namespace VillageDefence.Models.BaseModels
         public int UpgradeCost = 0;
 
         public abstract bool Upgrade();
+        public abstract bool CanUpgrade();
         public abstract bool FuncA(Village myVillage);
         public abstract bool FuncB(Village myVillage);
         public abstract bool FuncC(Village myVillage);

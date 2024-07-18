@@ -165,8 +165,6 @@ public partial class MainView : UserControl
         if (myGame.IsStartBattle())
         {
             myBattleView = new BattleView(this);
-            myBattleView.myBattle.SetupBattle(myGame.myVillage, myGame.Turn);
-            myBattleView.Refresh();
             MainLabel.Content = myBattleView;
 
             MainGrid.IsVisible = false;

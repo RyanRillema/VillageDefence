@@ -19,6 +19,14 @@ namespace VillageDefence.Models.Structures
         {
             return SetRawData(Type, Level + 1);
         }
+        public override bool CanUpgrade()
+        {
+            if ((UpgradeCost != 999) && (UpgradeArmour) && (UpgradeDamage))
+            {
+                return true;
+            }
+            return false;
+        }
         public override bool FuncA(Village myVillage)
         {
             // Buy a unit
@@ -261,6 +269,17 @@ namespace VillageDefence.Models.Structures
 
             return ReturnString;
         }
+        public void HealUnit2(int iHealth = 1)
+        {
+            if (Health.CurrentHealth + iHealth < Health.TotalHealth)
+            {
+                Health.CurrentHealth = Health.CurrentHealth + iHealth;
+            }
+            else
+            {
+                Health.CurrentHealth = Health.TotalHealth;
+            }
+        }
         public override void SetInitDetails()
         {
             SetRawData(Type, Level);
@@ -289,6 +308,8 @@ namespace VillageDefence.Models.Structures
                 case 0:
                     Name = "Build site";
                     UpgradeCost = 20;
+                    UpgradeArmour = true;
+                    UpgradeDamage = true;
                     return true;
                 case 1:
                     Name = "Spear circle";
@@ -300,9 +321,9 @@ namespace VillageDefence.Models.Structures
                     Count = 1;
                     UpgradeArmourCost = 20;
                     UpgradeDamageCost = 20;
+                    UpgradeCost = 50;
                     UpgradeArmour = false;
                     UpgradeDamage = false;
-                    UpgradeCost = 50;
                     return true;
                 case 3:
                     Name = "Spear hall";
@@ -324,6 +345,8 @@ namespace VillageDefence.Models.Structures
                 case 0:
                     Name = "Build site";
                     UpgradeCost = 40;
+                    UpgradeArmour = true;
+                    UpgradeDamage = true;
                     return true;
                 case 1:
                     Name = "Bow stack";

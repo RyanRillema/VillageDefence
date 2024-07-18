@@ -15,8 +15,36 @@ namespace VillageDefence.Models.Structures
 
         public override bool Upgrade()
         {
-            return SetRawData(Type, Level + 1); 
-        }        
+            return SetRawData(Type, Level + 1);
+        }
+        public override bool CanUpgrade()
+        {
+            if (UpgradeCost != 999)
+            {
+                return true;
+            }
+            return false;
+        }
+        public override bool FuncA(Village myVillage)
+        {
+            if (myVillage.Coins >= UpgradeCost/10)
+            {
+                Health.CurrentHealth = Health.TotalHealth;
+                myVillage.Coins -= UpgradeCost / 10;
+                return true;
+            }
+            return false;
+        }
+        public override string CreateTextFuncA(Village myVillage)
+        {
+            if ((Level>0) && (Health.CurrentHealth < Health.TotalHealth))
+            {
+                return "Repair (" + UpgradeCost/10 + ")";
+            } else
+            {
+                return " ";
+            }
+        }
         public override String CreateLabelA()
         {
             return StringReturnCheckLevel("Damage:");
@@ -63,9 +91,11 @@ namespace VillageDefence.Models.Structures
 
             return ReturnString;
         }
-        public override bool DoDamage(int Damage, ref int DamageDone)
+        public override bool DoDamage(int Damage, ref int DamageDone, ref int DamageBlocked, DefenseStructure GateA, DefenseStructure GateB)
         {
             // Return TRUE if unit count reaches 0
+
+            //Ignore gate armour
 
             Debug.Assert(Count > 0, "Cannot call damage on unit with 0 count");
 
@@ -75,8 +105,8 @@ namespace VillageDefence.Models.Structures
             {
                 if (Health.CurrentHealth + CombatStats.ArmourValue > Damage)
                 {
-                    Health.CurrentHealth -= Damage - CombatStats.ArmourValue;
-                    DamageDone += Damage - CombatStats.ArmourValue;
+                    Health.CurrentHealth -= Math.Max(Damage - CombatStats.ArmourValue, 0); // Do not allow negative damage
+                    DamageDone += Math.Max(Damage - CombatStats.ArmourValue, 0);
                     Damage = 0;
                 }
                 else
@@ -139,7 +169,7 @@ namespace VillageDefence.Models.Structures
                     Count = 1;
                     Health.SetHealth(25);
                     CombatStats.ArmourType = 1;
-                    CombatStats.ArmourValue = 0;
+                    CombatStats.ArmourValue = 1;
                     CombatStats.DamageType = 2;
                     CombatStats.DamageValue = 10;
                     return true;
@@ -154,7 +184,7 @@ namespace VillageDefence.Models.Structures
                     Name = "Arrows";
                     UpgradeCost = 150;
                     Health.SetHealth(75);
-                    CombatStats.ArmourValue = 8;
+                    CombatStats.ArmourValue = 5;
                     CombatStats.DamageValue = 30;
                     return true;
                 case 4:
@@ -174,29 +204,29 @@ namespace VillageDefence.Models.Structures
             {
                 case 0:
                     Name = "Dirt";
-                    UpgradeCost = 10;
+                    UpgradeCost = 50;
                     return true;
                 case 1:
                     Name = "Simple stick gate";
-                    UpgradeCost = 25;
+                    UpgradeCost = 100;
                     Count = 1;
                     CombatStats.ArmourType = 1;
-                    CombatStats.ArmourValue = 3;
+                    CombatStats.ArmourValue = 1;
                     return true;
                 case 2:
                     Name = "Medium stick gate";
-                    UpgradeCost= 70;
-                    CombatStats.ArmourValue = 8;
+                    UpgradeCost= 200;
+                    CombatStats.ArmourValue = 2;
                     return true;
                 case 3:
                     Name = "Thick stick gate";
-                    UpgradeCost = 100;
-                    CombatStats.ArmourValue = 20;
+                    UpgradeCost = 300;
+                    CombatStats.ArmourValue = 3;
                     return true;
                 case 4:
                     Name = "Woven stick gate";
-                    UpgradeCost = 150;
-                    CombatStats.ArmourValue = 25;
+                    UpgradeCost = 400;
+                    CombatStats.ArmourValue = 4;
                     return true;
                 default:
                     return false;

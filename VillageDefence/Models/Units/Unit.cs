@@ -5,33 +5,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VillageDefence.Models.BaseModels;
+using VillageDefence.Models.Structures;
 
 namespace VillageDefence.Models.Units
 {
     public abstract class Unit : BaseUnit
     {
-        public override bool DoDamage(int Damage, ref int DamageDone)
+        public override bool DoDamage(int Damage, ref int DamageDone, ref int DamageBlocked, DefenseStructure GateA, DefenseStructure GateB)
         {
             // Return TRUE if unit count reaches 0
-
+            int TotalArmour = CombatStats.ArmourValue + GateA.CombatStats.ArmourValue + GateB.CombatStats.ArmourValue;
             Debug.Assert(Count > 0, "Cannot call damage on unit with 0 count");
 
             DamageDone = 0;
 
             while (Damage > 0)
             {
-                if (Health.CurrentHealth + CombatStats.ArmourValue > Damage)
+                if (Health.CurrentHealth + TotalArmour > Damage)
                 {
-                    Health.CurrentHealth -= Math.Max(Damage - CombatStats.ArmourValue,0); // Do not allow negative damage
-                    DamageDone += Math.Max(Damage - CombatStats.ArmourValue, 0);
+                    Health.CurrentHealth -= Math.Max(Damage - TotalArmour, 0); // Do not allow negative damage
+                    DamageDone += Math.Max(Damage - TotalArmour, 0);
+                    //Blocked should be armour total unless the damage is less than the armour
+                    DamageBlocked += Math.Min(TotalArmour, Damage);
                     Damage = 0;
                 }
                 else
                 {
                     // Reduce damage by health and armour
-                    Damage -= Health.CurrentHealth + CombatStats.ArmourValue;
+                    Damage -= Health.CurrentHealth + TotalArmour;
                     // Damage done is only to health
                     DamageDone += Health.CurrentHealth;
+                    DamageBlocked += TotalArmour;
                     Health.CurrentHealth = Health.TotalHealth;
                     Count--;
                 }

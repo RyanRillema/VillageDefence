@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VillageDefence.Models.Structures;
 
 namespace VillageDefence.Models.BaseModels
 {
@@ -36,7 +37,7 @@ namespace VillageDefence.Models.BaseModels
                 return StringReturn;
             }
         }
-        public abstract bool DoDamage(int Damage, ref int DamageDone);
+        public abstract bool DoDamage(int Damage, ref int DamageDone, ref int DamageBlocked, DefenseStructure GateA, DefenseStructure GateB);
         public abstract String GetButtonLabel();
         public abstract void SetInitDetails();
     }
